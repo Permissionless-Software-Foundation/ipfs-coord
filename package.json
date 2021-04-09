@@ -32,9 +32,9 @@
     "title": "ipfs-coord",
     "url": "localhost:5000"
   },
-  "repository": "christroutner/ipfs-coord",
+  "repository": "Permissionless-Software-Foundation/ipfs-coord",
   "devDependencies": {
-    "@psf/bch-js": "^4.16.1",
+    "@psf/bch-js": "^4.18.0",
     "apidoc": "^0.25.0",
     "chai": "^4.2.0",
     "coveralls": "^3.1.0",
@@ -48,7 +48,7 @@
     "lodash.clonedeep": "^4.5.0",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
-    "semantic-release": "^17.3.7",
+    "semantic-release": "^17.4.2",
     "sinon": "^9.2.2",
     "standard": "^16.0.3"
   },
