@@ -7,7 +7,7 @@ This library will help IPFS peers discover a common interest, coordinate around 
 - Circuit Relays for censorship resistance
 - Bitcoin Cash for end-to-end encryption and payments.
 
-This library will automatically track peers, connect to them through circuit-relays, and end-to-end encrypt all communication with each node.
+This library will automatically track peers, connects to them through circuit-relays, and end-to-end encrypts all communication with each node.
 
 Here are some use cases where IPFS node coordination is needed:
 - e2e encrypted chat
