@@ -6,15 +6,15 @@
 
 const BOOTSTRAP_BROWSER_CRs = [
   {
-    name: 'ipfs-cr-wss.fullstack.nl',
+    name: 'ipfs-service-provider.fullstackcash.nl',
     multiaddr:
-      '/dns4/ipfs-cr-wss.fullstackcash.nl/tcp/443/wss/ipfs/QmRrUu64cAnPntYiUc7xMunLKZgj1XZT5HmqJNtDMqQcD7',
+      '/dns4/ipfs-service-provider.fullstackcash.nl/tcp/443/wss/ipfs/QmbyYXKbnAmMbMGo8LRBZ58jYs58anqUzY1m4jxDmhDsjd',
     connected: false
   },
   {
-    name: 'ipfs-service-provider.fullstackcash.nl',
+    name: 'go-ipfs-wss.fullstackcash.nl',
     multiaddr:
-      '/dns4/ipfs-service-provider.fullstackcash.nl/tcp/443/wss/ipfs/QmXvJytBR4R9yMVkLPhsqgH3xJqUtoiobLdhvYF46vcj3h',
+      '/dns4/go-ipfs-wss.fullstackcash.nl/tcp/443/wss/ipfs/12D3KooWMo5T3HytfpjfZqBd1PyZjG22VASf6STygEUbtSeMQVZ4',
     connected: false
   }
 ]
@@ -27,21 +27,15 @@ const BOOTSTRAP_NODE_CRs = [
     connected: false
   },
   {
-    name: 'chat.psfoundation.cash',
-    multiaddr:
-      '/ip4/138.68.212.34/tcp/4002/ipfs/QmaUW4oCVPUFLRqeSjvhHwGFJHGWrYWLBEt7WxnexDm3Xa',
-    connected: false
-  },
-  {
-    name: 'ipfs-cr.fullstack.nl',
-    multiaddr:
-      '/ip4/157.90.20.129/tcp/4002/ipfs/QmRrUu64cAnPntYiUc7xMunLKZgj1XZT5HmqJNtDMqQcD7',
-    connected: false
-  },
-  {
     name: 'ipfs-service-provider.fullstackcash.nl',
     multiaddr:
-      '/ip4/157.90.28.11/tcp/4002/ipfs/QmXvJytBR4R9yMVkLPhsqgH3xJqUtoiobLdhvYF46vcj3h',
+      '/ip4/157.90.28.11/tcp/4002/p2p/QmbyYXKbnAmMbMGo8LRBZ58jYs58anqUzY1m4jxDmhDsjd',
+    connected: false
+  },
+  {
+    name: 'go-ipfs.fullstackcash.nl',
+    multiaddr:
+      '/ip4/162.55.59.102/tcp/4001/p2p/12D3KooWMo5T3HytfpjfZqBd1PyZjG22VASf6STygEUbtSeMQVZ4',
     connected: false
   }
 ]
