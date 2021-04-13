@@ -14,7 +14,7 @@ const BOOTSTRAP_BROWSER_CRs = [
   {
     name: 'go-ipfs-wss.fullstackcash.nl',
     multiaddr:
-      '/dns4/go-ipfs-wss.fullstackcash.nl/tcp/443/wss/ipfs/12D3KooWMo5T3HytfpjfZqBd1PyZjG22VASf6STygEUbtSeMQVZ4',
+      '/dns4/go-ipfs-wss.fullstackcash.nl/tcp/443/wss/ipfs/QmTtXA18C6sg3ji9zem4wpNyoz9m4UZT85mA2D2jx2gzEk',
     connected: false
   }
 ]
@@ -35,7 +35,7 @@ const BOOTSTRAP_NODE_CRs = [
   {
     name: 'go-ipfs.fullstackcash.nl',
     multiaddr:
-      '/ip4/162.55.59.102/tcp/4001/p2p/12D3KooWMo5T3HytfpjfZqBd1PyZjG22VASf6STygEUbtSeMQVZ4',
+      '/ip4/162.55.59.102/tcp/4001/p2p/QmTtXA18C6sg3ji9zem4wpNyoz9m4UZT85mA2D2jx2gzEk',
     connected: false
   }
 ]
