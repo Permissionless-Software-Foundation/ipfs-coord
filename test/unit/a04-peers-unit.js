@@ -141,7 +141,7 @@ describe('#peers', () => {
       await uut.refreshPeerConnections()
     })
 
-    it('should refresh connections for swarm peers', async () => {
+    it('should refresh connections for swarm peers that are not in the swarm list', async () => {
       // Mock the response from orbitdb.
       sandbox.stub(uut.orbitdb, 'connectToPeerDb').resolves({})
       sandbox.stub(uut.ipfs.swarm, 'peers').resolves(mockData.swarmPeers)
@@ -158,16 +158,16 @@ describe('#peers', () => {
       assert.isTrue(uut.ipfs.swarm.connect.calledOnce, 'Expected to be called once')
     })
 
-    it('should not renew connection with peers that are not in the swarm list', async () => {
+    it('should not refresh connection for peers that are in the swarm list', async () => {
       // Mock the response from orbitdb.
       sandbox.stub(uut.orbitdb, 'connectToPeerDb').resolves({})
-      sandbox.stub(uut.ipfs.swarm, 'peers').resolves([])
+      sandbox.stub(uut.ipfs.swarm, 'peers').resolves(mockData.swarmPeers)
 
       // https://sinonjs.org/releases/v10.0.1/spies/
       sandbox.spy(uut.ipfs.swarm, 'connect')
 
       // Add a peer
-      await uut.addPeer(mockData.announceObj)
+      await uut.addPeer(mockData.announceObj2)
 
       // Connect to that peer.
       await uut.refreshPeerConnections()
