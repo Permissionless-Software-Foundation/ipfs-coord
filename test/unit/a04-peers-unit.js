@@ -141,6 +141,40 @@ describe('#peers', () => {
       await uut.refreshPeerConnections()
     })
 
+    it('should refresh connections for swarm peers', async () => {
+      // Mock the response from orbitdb.
+      sandbox.stub(uut.orbitdb, 'connectToPeerDb').resolves({})
+      sandbox.stub(uut.ipfs.swarm, 'peers').resolves(mockData.swarmPeers)
+
+      // https://sinonjs.org/releases/v10.0.1/spies/
+      sandbox.spy(uut.ipfs.swarm, 'connect')
+
+      // Add a peer
+      await uut.addPeer(mockData.announceObj)
+
+      // Connect to that peer.
+      await uut.refreshPeerConnections()
+
+      assert.isTrue(uut.ipfs.swarm.connect.calledOnce, 'Expected to be called once')
+    })
+
+    it('should not renew connection with peers that are not in the swarm list', async () => {
+      // Mock the response from orbitdb.
+      sandbox.stub(uut.orbitdb, 'connectToPeerDb').resolves({})
+      sandbox.stub(uut.ipfs.swarm, 'peers').resolves([])
+
+      // https://sinonjs.org/releases/v10.0.1/spies/
+      sandbox.spy(uut.ipfs.swarm, 'connect')
+
+      // Add a peer
+      await uut.addPeer(mockData.announceObj)
+
+      // Connect to that peer.
+      await uut.refreshPeerConnections()
+
+      assert.isTrue(uut.ipfs.swarm.connect.notCalled, 'Expects not to be called')
+    })
+
     it('should catch and throw an error', async () => {
       try {
         uut.cr = undefined
