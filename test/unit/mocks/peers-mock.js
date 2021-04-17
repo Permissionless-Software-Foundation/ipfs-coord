@@ -45,8 +45,16 @@ const swarmPeers = [
     peer: 'QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ'
   }
 ]
+// Peers that match with circuit relay address mock id
+const swarmPeers2 = [
+  {
+    addr: ' <Multiaddr 0468838352060fa1a503221220b04a57d40eca138809f139a76b12044333c3740391c9bf1ce9d8e21a79210bfd - /ip4/104.131.131.82/tcp/4001/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ>',
+    peer: 'QmNZktxkfScScnHCFSGKELH3YRqdxHQ3Le9rAoRLhZ6vgL'
+  }
+]
 module.exports = {
   announceObj,
   announceObj2,
-  swarmPeers
+  swarmPeers,
+  swarmPeers2
 }
