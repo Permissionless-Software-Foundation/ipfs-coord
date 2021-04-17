@@ -1,7 +1,6 @@
 /*
   A mocked instance of ipfs, for use in unit tests.
 */
-
 const ipfs = {
   id: () => {
     return {
@@ -9,7 +8,10 @@ const ipfs = {
     }
   },
   swarm: {
-    connect: async () => {}
+    connect: async () => {},
+    peers: async () => {
+      return []
+    }
   },
   pubsub: {
     subscribe: async () => {},
