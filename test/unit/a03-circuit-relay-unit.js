@@ -135,7 +135,10 @@ describe('#circuit-relay', () => {
       uut.state.relays = crMockData.circuitRelays
       await uut.connectToCRs()
 
-      assert.isTrue(uut.ipfs.swarm.connect.notCalled, 'Expects not to be called')
+      assert.isTrue(
+        uut.ipfs.swarm.connect.notCalled,
+        'Expects not to be called'
+      )
       assert.equal(true, true, 'Not throwing an error is a success')
     })
 
@@ -148,15 +151,16 @@ describe('#circuit-relay', () => {
       uut.state.relays = crMockData.circuitRelays
       await uut.connectToCRs()
 
-      assert.isTrue(uut.ipfs.swarm.connect.calledOnce, 'Expected to be called once')
+      assert.isTrue(
+        uut.ipfs.swarm.connect.calledOnce,
+        'Expected to be called once'
+      )
       assert.equal(true, true, 'Not throwing an error is a success')
     })
 
     it('should operate in the face of network issues', async () => {
       // Force an error.
-      sandbox
-        .stub(uut.ipfs.swarm, 'connect')
-        .rejects(new Error('test error'))
+      sandbox.stub(uut.ipfs.swarm, 'connect').rejects(new Error('test error'))
 
       await uut.connectToCRs()
 
