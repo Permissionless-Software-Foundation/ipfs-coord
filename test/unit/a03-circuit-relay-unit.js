@@ -11,6 +11,8 @@ const cloneDeep = require('lodash.clonedeep')
 const CircuitRelay = require('../../lib/circuit-relay')
 const ipfsLib = require('./mocks/ipfs-mock')
 const bootstrapCircuitRelays = require('../../config/bootstrap-circuit-relays')
+const peerMockData = require('./mocks/peers-mock')
+const crMockData = require('./mocks/circuit-relay-mocks')
 
 describe('#circuit-relay', () => {
   let sandbox
@@ -124,11 +126,41 @@ describe('#circuit-relay', () => {
       assert.equal(true, true, 'Not throwing an error is a success')
     })
 
+    it('Should not connect the circuit relays that are in the swarm list', async () => {
+      // Mock the response from orbitdb.
+      sandbox.stub(uut.ipfs.swarm, 'peers').resolves(peerMockData.swarmPeers2)
+      // https://sinonjs.org/releases/v10.0.1/spies/
+      sandbox.spy(uut.ipfs.swarm, 'connect')
+
+      uut.state.relays = crMockData.circuitRelays
+      await uut.connectToCRs()
+
+      assert.isTrue(
+        uut.ipfs.swarm.connect.notCalled,
+        'Expects not to be called'
+      )
+      assert.equal(true, true, 'Not throwing an error is a success')
+    })
+
+    it('should connect the circuit relays that are not in the swarm list', async () => {
+      // Mock the response from orbitdb.
+      sandbox.stub(uut.ipfs.swarm, 'peers').resolves(peerMockData.swarmPeers)
+      // https://sinonjs.org/releases/v10.0.1/spies/
+      sandbox.spy(uut.ipfs.swarm, 'connect')
+
+      uut.state.relays = crMockData.circuitRelays
+      await uut.connectToCRs()
+
+      assert.isTrue(
+        uut.ipfs.swarm.connect.calledOnce,
+        'Expected to be called once'
+      )
+      assert.equal(true, true, 'Not throwing an error is a success')
+    })
+
     it('should operate in the face of network issues', async () => {
       // Force an error.
-      sandbox
-        .stub(uut.ipfs.swarm, 'connect')
-        .rejects(new Error('test error'))
+      sandbox.stub(uut.ipfs.swarm, 'connect').rejects(new Error('test error'))
 
       await uut.connectToCRs()
 
