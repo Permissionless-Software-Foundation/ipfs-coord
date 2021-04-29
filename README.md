@@ -1,3 +1,5 @@
+![ipfs-coord logo](./lib/ipfs-coord-logo.png)
+
 # ipfs-coord
 
 This is a JavaScript npm library built on top of [js-ipfs](https://github.com/ipfs/js-ipfs).
