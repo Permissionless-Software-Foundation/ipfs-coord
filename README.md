@@ -2,16 +2,25 @@
 
 # ipfs-coord
 
-This is a JavaScript npm library built on top of [js-ipfs](https://github.com/ipfs/js-ipfs).
+This is a JavaScript npm library built on top of [js-ipfs](https://github.com/ipfs/js-ipfs). It provides the following high-level features:
+
+- Helps IPFS nodes create an on-the-fly subnetwork, using pubsub channels.
+- Allows new peers entering the subnetwork to find the other subnetwork peers.
+- Creates end-to-end encrypted (e2ee) communication channels between peers.
+- Allows automatic networking between peers, even if they are behind a firewall.
+- Allows peers to easily pay one another in cryptocurrency for access to web services.
+
 This library will help IPFS peers discover one another, coordinate around a common interest, and then stay connected around that interest. It's main sub-components are:
+
 - IPFS pubsub channels for communication
 - OrbitDB for persistence and to prevent 'dropped messages'
-- Circuit Relays for censorship resistance
+- Circuit Relays for censorship resistance and tunneling through firewalls
 - Bitcoin Cash for end-to-end encryption and payments.
 
 This library will automatically track peers, connects to them through circuit-relays, and end-to-end encrypts all communication with each node.
 
 Here are some use cases where IPFS node coordination is needed:
+
 - e2e encrypted chat
 - Circuit-relay as-a-service
 - Creating CoinJoin transactions
@@ -22,6 +31,7 @@ Here are some use cases where IPFS node coordination is needed:
 The ultimate goal for this library is to be a building block for building a replacement to the conventional REST API. APIs like REST or gRPC are incredibly valuable, but suffer from the same censorship risks as the rest of the web. An IPFS-based API, in a fully distributed network like IPFS, must have sophisticated coordination in order for it to function properly. This is that coordination library.
 
 Here is some videos and blog posts that preceded this work:
+
 - [Building Uncensorable REST APIs](https://youtu.be/VVc0VbOD4co)
 - [IPFS API](https://troutsblog.com/blog/ipfs-api)
 - [Introducing chat.fullstack.cash](https://troutsblog.com/blog/chat-fullstack-cash)
@@ -29,14 +39,16 @@ Here is some videos and blog posts that preceded this work:
 - [PS004 Collaborative CoinJoin](https://github.com/Permissionless-Software-Foundation/specifications/blob/master/ps004-collaborative-coinjoin.md)
 
 A live demo of using this library to build an e2e encrypted chat app can be interacted with here:
+
 - [chat.fullstack.cash](https://chat.fullstack.cash)
 
-
 ## Install
+
 Install the npm library:
 `npm install --save ipfs-coord`
 
 ### Example in a node.js app:
+
 Here is an example of adding ipfs-coord to your own node.js app:
 
 ```javascript
@@ -64,6 +76,7 @@ start()
 ```
 
 ### Example in a browser app:
+
 This example is exactly the same, except when instantiating the ipfs-coord library, you want to specify the `type` as `browser`.
 
 ```javascript
@@ -91,7 +104,9 @@ start()
 ```
 
 ### Development Environment
+
 Setup a development environment:
+
 ```
 git clone https://github.com/christroutner/ipfs-coord
 cd ipfs-coord
@@ -100,6 +115,7 @@ npm test
 ```
 
 # Licence
+
 [MIT](LICENSE.md)
 
 t

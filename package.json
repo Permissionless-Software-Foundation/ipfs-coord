@@ -1,6 +1,6 @@
 {
   "name": "ipfs-coord",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "A JS library for helping IPFS peers coordinate, find a common interest, and stay connected around that interest.",
   "main": "index.js",
   "scripts": {
