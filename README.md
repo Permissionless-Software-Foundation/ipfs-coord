@@ -4,11 +4,11 @@
 
 This is a JavaScript npm library built on top of [js-ipfs](https://github.com/ipfs/js-ipfs). It provides the following high-level features:
 
-- Helps IPFS nodes create an on-the-fly subnetwork, using pubsub channels.
-- Allows new peers entering the subnetwork to find the other subnetwork peers.
-- Creates end-to-end encrypted (e2ee) communication channels between peers.
-- Allows automatic networking between peers, even if they are behind a firewall.
-- Allows peers to easily pay one another in cryptocurrency for access to web services.
+- **Subnets** - Helps IPFS nodes create an on-the-fly subnetwork, using pubsub channels.
+- **Peer Discovery** - Allows new peers entering the subnetwork to find the other subnetwork peers.
+- **E2EE** - Creates end-to-end encrypted (e2ee) communication channels between peers.
+- **Censorship Resistance** - Allows automatic networking between peers, even if they are behind a firewall.
+- **Payments** - Allows peers to easily pay one another in cryptocurrency for access to web services.
 
 This library will help IPFS peers discover one another, coordinate around a common interest, and then stay connected around that interest. It's main sub-components are:
 
