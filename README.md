@@ -47,6 +47,11 @@ A live demo of using this library to build an e2e encrypted chat app can be inte
 Install the npm library:
 `npm install --save ipfs-coord`
 
+This library requires a _peer_ dependency of:
+
+- [@psf/bch-js](https://www.npmjs.com/package/@psf/bch-js)
+- [ipfs](https://www.npmjs.com/package/ipfs) version <= 0.55.4
+
 ### Example in a node.js app:
 
 Here is an example of adding ipfs-coord to your own node.js app:
