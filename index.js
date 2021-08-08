@@ -58,23 +58,17 @@ class IpfsCoord {
   // Returns a Promise that resolves to true once the IPFS node has been
   // initialized and has had a chance to connect to circuit relays and
   // coordination pubsub channels.
-  async isReady () {
+  async start () {
     try {
-      do {
-        await _this._sleep(1000)
-
-        if (this.ipfs.state.isReady) {
-          return true
-        }
-      } while (1)
+      await this.ipfs.start()
     } catch (err) {
-      console.error('Error in isReady()')
+      console.log('Error in ipfs-coord start()')
       throw err
     }
   }
 
   _sleep (ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms))
+    return new Promise(resolve => setTimeout(resolve, ms))
   }
 }
 
