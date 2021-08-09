@@ -32,6 +32,11 @@ The ultimate goal for this library is to be a building block for building a repl
 
 Here is some videos and blog posts that preceded this work:
 
+- Demo video 1: [Demo of chat.fullstack.cash](https://youtu.be/zMklhvq_NFM)
+- Demo video 2: [ipfs-coord Architecture](https://youtu.be/jUFY7hM1xpk)
+
+Additional content that preceded this work:
+
 - [Building Uncensorable REST APIs](https://youtu.be/VVc0VbOD4co)
 - [IPFS API](https://troutsblog.com/blog/ipfs-api)
 - [Introducing chat.fullstack.cash](https://troutsblog.com/blog/chat-fullstack-cash)
