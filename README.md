@@ -55,7 +55,7 @@ Install the npm library:
 This library requires a _peer_ dependency of:
 
 - [@psf/bch-js](https://www.npmjs.com/package/@psf/bch-js)
-- [ipfs](https://www.npmjs.com/package/ipfs) version <= 0.55.4
+- [ipfs](https://www.npmjs.com/package/ipfs) (version 0.55.4 or _lower_)
 
 ### Example in a node.js app:
 
