@@ -1,6 +1,6 @@
 {
   "name": "ipfs-coord",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "A JS library for helping IPFS peers coordinate, find a common interest, and stay connected around that interest.",
   "main": "index.js",
   "scripts": {
@@ -34,7 +34,7 @@
   },
   "repository": "Permissionless-Software-Foundation/ipfs-coord",
   "devDependencies": {
-    "@psf/bch-js": "^4.18.0",
+    "@psf/bch-js": "^4.20.10",
     "apidoc": "^0.25.0",
     "chai": "^4.2.0",
     "coveralls": "^3.1.0",
@@ -48,7 +48,7 @@
     "lodash.clonedeep": "^4.5.0",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
-    "semantic-release": "^17.4.2",
+    "semantic-release": "^17.4.4",
     "sinon": "^9.2.2",
     "standard": "^16.0.3"
   },
