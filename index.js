@@ -9,6 +9,8 @@
 
 // local libraries
 const Adapters = require('./lib/adapters')
+const Controllers = require('./lib/controllers')
+const UseCases = require('./lib/use-cases')
 // const Ipfs = require('./lib/ipfs-lib')
 // const BchLib = require('./lib/bch-lib')
 
@@ -55,6 +57,14 @@ class IpfsCoord {
 
     // Load the adapter libraries.
     this.adapters = new Adapters(localConfig)
+    localConfig.adapters = this.adapters
+
+    // Load the controller libraries
+    this.controllers = new Controllers(localConfig)
+    localConfig.controllers = this.controllers
+
+    // Load the Use Cases
+    this.useCases = new UseCases(localConfig)
   }
 
   // Returns a Promise that resolves to true once the IPFS node has been
