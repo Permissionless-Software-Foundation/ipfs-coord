@@ -6,10 +6,10 @@ ipfs-coord is a shortening of the word 'coordination'. It is a JavaScript npm li
 
 This document contains a high-level, human-readable specification for the four major architectural areas of the ipfs-coord library:
 
-    Entities
-    Use Cases
-    Controllers (inputs)
-    Adapters (outputs)
+- Entities
+- Use Cases
+- Controllers (inputs)
+- Adapters (outputs)
 
 This reflects the [Clean Architecture](https://troutsblog.com/blog/clean-architecture) design pattern.
 
@@ -34,7 +34,7 @@ Peers are other IPFS nodes that the application wants to keep track of. These ar
 
 ### Relays
 
-Some nodes using ipfs-coord can elect to become [Circuit Relays](https://docs.libp2p.io/concepts/circuit-relay/). Circuit Relays are critical for keeping the network censorship resistant. They allow nodes that otherwise would not be able to communicate with one another, do so. They assist in punching through network firewalls that would otherwise block communication. They allow the subnet to route around damage and dynamically adjust as nodes entering and leave the subnet.
+Some nodes using ipfs-coord can elect to become [Circuit Relays](https://docs.libp2p.io/concepts/circuit-relay/). Circuit Relays are critical for keeping the network censorship resistant. They allow nodes that otherwise would not be able to communicate with one another, do so. They assist in punching through network firewalls that would otherwise block communication. They allow the subnet to route around damage and dynamically adjust as nodes enter and leave the subnet.
 
 - `relayList` - An array of IPFS IDs (strings), identifying each Relay this node knows about.
 - `relayData` - An object with root properties that match the relay IPFS ID. Each root property represents a relay and contains the data about that relay.
