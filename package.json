@@ -68,5 +68,8 @@
   "dependencies": {
     "bch-encrypt-lib": "^2.0.0",
     "orbit-db": "^0.26.1"
+  },
+  "peerDependencies": {
+    "ipfs": "0.55.4"
   }
 }
