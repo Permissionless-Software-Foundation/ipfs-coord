@@ -20,7 +20,7 @@ describe('#Adapters', () => {
     sandbox = sinon.createSandbox()
 
     const bchjs = new BCHJS()
-    uut = new Adapters({ bchjs, ipfs })
+    uut = new Adapters({ bchjs, ipfs, type: 'node.js' })
   })
 
   afterEach(() => sandbox.restore())
@@ -37,7 +37,7 @@ describe('#Adapters', () => {
       }
     })
 
-    it('should throw an error if bch-js instance is not passed in', () => {
+    it('should throw an error if bch-js instance is not passed as input', () => {
       try {
         uut = new Adapters({ ipfs })
 
@@ -46,6 +46,20 @@ describe('#Adapters', () => {
         assert.include(
           err.message,
           'An instance of @psf/bch-js must be passed when instantiating the Adapters library.'
+        )
+      }
+    })
+
+    it('should throw an error if node type is not passed as input', () => {
+      try {
+        const bchjs = new BCHJS()
+        uut = new Adapters({ ipfs, bchjs })
+
+        console.log('uut: ', uut)
+      } catch (err) {
+        assert.include(
+          err.message,
+          'The type of IPFS node (browser or node.js) must be specified.'
         )
       }
     })
