@@ -9,10 +9,10 @@ const cloneDeep = require('lodash.clonedeep')
 
 // local libraries
 const CircuitRelay = require('../../lib/circuit-relay')
-const ipfsLib = require('./mocks/ipfs-mock')
+const ipfsLib = require('../mocks/ipfs-mock')
 const bootstrapCircuitRelays = require('../../config/bootstrap-circuit-relays')
-const peerMockData = require('./mocks/peers-mock')
-const crMockData = require('./mocks/circuit-relay-mocks')
+const peerMockData = require('../mocks/peers-mock')
+const crMockData = require('../mocks/circuit-relay-mocks')
 
 describe('#circuit-relay', () => {
   let sandbox

@@ -11,8 +11,8 @@ const cloneDeep = require('lodash.clonedeep')
 const Peers = require('../../lib/peers')
 const CircuitRelay = require('../../lib/circuit-relay')
 const OrbitDB = require('../../lib/orbitdb')
-const ipfsLib = require('./mocks/ipfs-mock')
-const mockData = require('./mocks/peers-mock')
+const ipfsLib = require('../mocks/ipfs-mock')
+const mockData = require('../mocks/peers-mock')
 
 describe('#peers', () => {
   let sandbox
@@ -155,7 +155,10 @@ describe('#peers', () => {
       // Connect to that peer.
       await uut.refreshPeerConnections()
 
-      assert.isTrue(uut.ipfs.swarm.connect.calledOnce, 'Expected to be called once')
+      assert.isTrue(
+        uut.ipfs.swarm.connect.calledOnce,
+        'Expected to be called once'
+      )
     })
 
     it('should not refresh connection for peers that are in the swarm list', async () => {
@@ -172,7 +175,10 @@ describe('#peers', () => {
       // Connect to that peer.
       await uut.refreshPeerConnections()
 
-      assert.isTrue(uut.ipfs.swarm.connect.notCalled, 'Expects not to be called')
+      assert.isTrue(
+        uut.ipfs.swarm.connect.notCalled,
+        'Expects not to be called'
+      )
     })
 
     it('should catch and throw an error', async () => {

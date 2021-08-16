@@ -9,7 +9,7 @@ const BCHJS = require('@psf/bch-js')
 
 // local libraries
 const Adapters = require('../../../lib/adapters')
-const ipfs = require('../mocks/ipfs-mock')
+const ipfs = require('../../mocks/ipfs-mock')
 
 describe('#Adapters', () => {
   let sandbox

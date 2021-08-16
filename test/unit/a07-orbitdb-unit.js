@@ -9,7 +9,7 @@ const cloneDeep = require('lodash.clonedeep')
 
 // local libraries
 const OrbitDB = require('../../lib/orbitdb')
-const mockDataLib = require('./mocks/orbitdb-mock')
+const mockDataLib = require('../mocks/orbitdb-mock')
 
 describe('#orbitdb', () => {
   let sandbox

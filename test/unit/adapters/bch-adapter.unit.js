@@ -8,7 +8,7 @@ const sinon = require('sinon')
 const BCHJS = require('@psf/bch-js')
 
 // local libraries
-const BchLib = require('../../lib/bch-lib')
+const BchLib = require('../../../lib/adapters/bch-adapter')
 
 describe('#bch-lib', () => {
   let sandbox
@@ -32,7 +32,7 @@ describe('#bch-lib', () => {
       } catch (err) {
         assert.include(
           err.message,
-          'An instance of bchjs must be passed when instantiating the ipfs-lib library.'
+          'An instance of bch-js must be passed when instantiating the BCH adapter library.'
         )
       }
     })

@@ -11,8 +11,8 @@ const cloneDeep = require('lodash.clonedeep')
 const Peers = require('../../lib/peers')
 const CircuitRelay = require('../../lib/circuit-relay')
 const Pubsub = require('../../lib/pubsub')
-const ipfsLib = require('./mocks/ipfs-mock')
-const mockData = require('./mocks/pubsub-mocks')
+const ipfsLib = require('../mocks/ipfs-mock')
+const mockData = require('../mocks/pubsub-mocks')
 
 describe('#pubsub', () => {
   let sandbox
