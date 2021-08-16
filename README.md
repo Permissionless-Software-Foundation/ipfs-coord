@@ -66,8 +66,7 @@ const IPFS = require('ipfs')
 const BCHJS = require('@psf/bch-js')
 const IpfsCoord = require('ipfs-coord')
 
-
-async start() {
+async function start() {
   // Create an instance of bch-js and IPFS.
   const bchjs = new BCHJS()
   const ipfs = await IPFS.create()
@@ -79,7 +78,7 @@ async start() {
     type: 'node.js'
   })
 
-  await this.ipfsCoord.isReady()
+  await ipfsCoord.start()
   console.log('IPFS and the coordination library is ready.')
 }
 start()
@@ -91,11 +90,10 @@ This example is exactly the same, except when instantiating the ipfs-coord libra
 
 ```javascript
 import IPFS from 'ipfs'
-import BCHJS from'@psf/bch-js'
+import BCHJS from '@psf/bch-js'
 import IpfsCoord from 'ipfs-coord'
 
-
-async start() {
+async function start() {
   // Create an instance of bch-js and IPFS.
   const bchjs = new BCHJS()
   const ipfs = await IPFS.create()
@@ -107,7 +105,7 @@ async start() {
     type: 'browser'
   })
 
-  await this.ipfsCoord.isReady()
+  await ipfsCoord.start()
   console.log('IPFS and the coordination library is ready.')
 }
 start()
