@@ -85,6 +85,7 @@ class IpfsCoord {
     await this.useCases.relays.initializeRelays(this.thisNode)
 
     // Subscribe to Pubsub Channels
+    await this.useCases.pubsub.initializePubsub(this.thisNode)
 
     // Start timer-based controllers.
   }
