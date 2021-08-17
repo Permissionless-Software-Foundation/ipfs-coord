@@ -13,6 +13,16 @@ This document contains a high-level, human-readable specification for the four m
 
 This reflects the [Clean Architecture](https://troutsblog.com/blog/clean-architecture) design pattern.
 
+## Configuration
+
+When instantiating the ipfs-coord library, the following configuration inputs can be passed to its constructor via an object with the indicated properties:
+
+- `ipfs`: (required) An instance of [js-ipfs](https://www.npmjs.com/package/ipfs). IPFS must be instantiated outside of ipfs-coord and passed into it when instantiating the ipfs-coord library.
+- `bchjs`: (required) An instance of [bch-js](https://www.npmjs.com/package/@psf/bch-js). bch-js must be instantiated outside of ipfs-coord and passed into it when instantiating the ipfs-coord library.
+- `type`: (required) A string with the value of 'browser' or 'node.js', to indicate what type of app is instantiating the library. This will determine the types of Circuit Relays the library can connect to.
+- `statusLog`: A function for handling status output strings on the status of ipfs-coord. This defaults to `console.log` if not specified.
+- `privateLog`: A function for handling private messages passed to this node from peer nodes. This defaults to `console.log` if not specified.
+
 ## Entities
 
 Entities make up the core business concepts. If these entities change, they fundamentally change the entire app.
@@ -35,6 +45,8 @@ Peers are other IPFS nodes that the application wants to keep track of. These ar
 ### Relays
 
 Some nodes using ipfs-coord can elect to become [Circuit Relays](https://docs.libp2p.io/concepts/circuit-relay/). Circuit Relays are critical for keeping the network censorship resistant. They allow nodes that otherwise would not be able to communicate with one another, do so. They assist in punching through network firewalls that would otherwise block communication. They allow the subnet to route around damage and dynamically adjust as nodes enter and leave the subnet.
+
+ipfs-coord will start by connecting to a small set of pre-configured Relays. As it discovers new peers in the subnetwork that have their `isCircuitRelay` flag set, it will expand its connections to as many Relays as it can find.
 
 - `relayList` - An array of IPFS IDs (strings), identifying each Relay this node knows about.
 - `relayData` - An object with root properties that match the relay IPFS ID. Each root property represents a relay and contains the data about that relay.

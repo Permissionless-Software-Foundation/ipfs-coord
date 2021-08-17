@@ -34,6 +34,7 @@ class IpfsCoord {
         'The type of IPFS node (browser or node.js) must be specified.'
       )
     }
+    this.type = localConfig.type
 
     // localConfiguration of an optional 'status' log handler for log reports. If none
     // is specified, default to console.log.
@@ -71,7 +72,21 @@ class IpfsCoord {
   // initialized and has had a chance to connect to circuit relays and
   // coordination pubsub channels.
   async start () {
+    // Wait for the IPFS to finish initializing, then retrieve information
+    // about the node like it's ID and multiaddrs.
     await this.adapters.ipfs.start()
+
+    // Create an instance of the 'self' which represents this IPFS node, BCH
+    // wallet, and other things that make up this ipfs-coord powered IPFS node.
+    this.thisNode = await this.useCases.thisNode.createSelf({ type: this.type })
+    console.log('thisNode: ', this.thisNode)
+
+    // Connect to Circuit Relays
+    await this.useCases.relays.initializeRelays(this.thisNode)
+
+    // Subscribe to Pubsub Channels
+
+    // Start timer-based controllers.
   }
 }
 
