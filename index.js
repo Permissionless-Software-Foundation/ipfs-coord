@@ -88,6 +88,7 @@ class IpfsCoord {
     await this.useCases.pubsub.initializePubsub(this.thisNode)
 
     // Start timer-based controllers.
+    await this.controllers.timer.startTimers(this.thisNode, this.useCases)
   }
 }
 
