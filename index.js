@@ -79,7 +79,7 @@ class IpfsCoord {
     // Create an instance of the 'self' which represents this IPFS node, BCH
     // wallet, and other things that make up this ipfs-coord powered IPFS node.
     this.thisNode = await this.useCases.thisNode.createSelf({ type: this.type })
-    console.log('thisNode: ', this.thisNode)
+    // console.log('thisNode: ', this.thisNode)
 
     // Connect to Circuit Relays
     await this.useCases.relays.initializeRelays(this.thisNode)
