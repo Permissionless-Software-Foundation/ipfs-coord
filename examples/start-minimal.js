@@ -18,6 +18,7 @@ async function start () {
     ipfs,
     bchjs,
     type: 'node.js'
+    // type: 'browser'
   })
 
   await ipfsCoord.start()
