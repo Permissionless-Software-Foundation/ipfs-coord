@@ -35,12 +35,33 @@ Entities make up the core business concepts. If these entities change, they fund
 
 Use cases are verbs or actions that is done _to_ an Entity or _between_ Entities.
 
-### ipfsNode
+### thisNode
 
-- Announce Self - Announces itself periodically on the general coordination pubsub channel.
-- Announce Service - If the node is a Service Provider, this use-case announces the service on the appropriate service-specific coordination channel.
-- Generate BCH ID - Generates a BCH key pair, used for payments and encryption.
-- Generate Private Key - Generates the private key from the mnemonic. Used for decrypting messages.
+The `this-node-use-cases.js` library contains the following Use Cases:
+
+- `createSelf()` - initializes the `thisNode` Entity. It takes the following actions:
+
+  - It retrieves basic information about the IPFS node like the ID and multiaddresses.
+  - It creates a BCH wallet and generates addresses for payments and a public key used for end-to-end encryption (e2ee).
+  - It creates an OrbitDB used to receive private e2ee messages.
+  - It initializes the Schema library for passing standardized messages.
+
+- `addSubnetPeer()` - This is an event handler that is triggered when an 'announcement object' is recieved on the general coordination pubsub channel. That object is passed to `addSubnetPeer()` to be processed. It will analyze the announcement object and add the peer to the array of peers tracked by the thisNode Entity. If the peer is already known, its data will be updated.
+
+- `refreshPeerConnections()` - is periodically called by the Timer Controller. It checks to see if thisNode is still connected to the all the subnet peers. It will refresh the connection if not. Circuit Relays are used to connect to other subnet peers, and each known circuit relay will be cycled through until a connection can be established between thisNode and the subnet peer.
+
+* Announce Self - Announces itself periodically on the general coordination pubsub channel.
+* Announce Service - If the node is a Service Provider, this use-case announces the service on the appropriate service-specific coordination channel.
+* Generate BCH ID - Generates a BCH key pair, used for payments and encryption.
+* Generate Private Key - Generates the private key from the mnemonic. Used for decrypting messages.
+
+### Relays
+
+The `relay-use-cases.js` library controlls the interactions between thisNode and the Circuit Relays that it knows about.
+
+- `initializeRelays()` - The ipfs-coord library comes with a pre-programmed list of Circuit Relay nodes. This list is stored in `config/bootstrap-circuit-relays.jd`. The `initializeRelays()` method is called once at startup to connect to these relays. This is what 'bootstraps' thisNode to the IPFS network and allows it to find subnetwork peers. After that initial bootstrap connection, thisNode will learn about and connect to other peers and circuit relays.
+
+- `connectToCRs()` - This method is called periodically by the Timer Controller. It checks the connection between thisNode and each Circuit Relay node. If thisNode has lost its connection, the connection is restored.
 
 ### Peers
 
@@ -54,13 +75,6 @@ Use cases are verbs or actions that is done _to_ an Entity or _between_ Entities
 - parseMessage() - Convert an incoming message into a JSON object.
 - subscribeToChannel() - Subscribe to a pubsub channel.
 - publishToChannel() - Publish a message to a pubsub channel.
-
-### Relays
-
-- Create - Add a new Relay to the list of known Relays.
-- Update - Update a Relay entry with newly received data.
-- Prune - Remove a Relay from the list of known Relays.
-- Connect To Relays - Called periodically to renew connections to all known circuit relays.
 
 ### Services
 
