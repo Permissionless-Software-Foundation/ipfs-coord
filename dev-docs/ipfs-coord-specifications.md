@@ -15,7 +15,7 @@ This reflects the [Clean Architecture](https://troutsblog.com/blog/clean-archite
 
 ## Configuration
 
-When instantiating the ipfs-coord library, the following configuration inputs can be passed to its constructor via an object with the indicated properties:
+When instantiating the ipfs-coord library, the following configuration inputs can be passed to its constructor via an object with the properties indicated below. Be sure to check out the [examples directory](../examples) for examples on how to instantiate the library with different configurations.
 
 - `ipfs`: (required) An instance of [js-ipfs](https://www.npmjs.com/package/ipfs). IPFS must be instantiated outside of ipfs-coord and passed into it when instantiating the ipfs-coord library.
 - `bchjs`: (required) An instance of [bch-js](https://www.npmjs.com/package/@psf/bch-js). bch-js must be instantiated outside of ipfs-coord and passed into it when instantiating the ipfs-coord library.
@@ -29,7 +29,7 @@ Entities make up the core business concepts. If these entities change, they fund
 
 ### thisNode
 
-`thisNode` is the IPFS node consuming the ipfs-coord library. The Entity creates a representation the 'self' and maintains the state of the IPFS node, BCH wallet, peers, relays, and pubsub channels that the node is tracking.
+`thisNode` is the IPFS node consuming the ipfs-coord library. The thisNode Entity creates a representation the 'self' and maintains the state of the IPFS node, BCH wallet, peers, relays, and pubsub channels that the node is tracking.
 
 ## Use Cases
 
@@ -48,13 +48,13 @@ The `this-node-use-cases.js` library contains the following Use Cases:
 
 - `addSubnetPeer()` - This is an event handler that is triggered when an 'announcement object' is recieved on the general coordination pubsub channel. That object is passed to `addSubnetPeer()` to be processed. It will analyze the announcement object and add the peer to the array of peers tracked by the thisNode Entity. If the peer is already known, its data will be updated.
 
-- `refreshPeerConnections()` - is periodically called by the Timer Controller. It checks to see if thisNode is still connected to the all the subnet peers. It will refresh the connection if not. Circuit Relays are used to connect to other subnet peers, and each known circuit relay will be cycled through until a connection can be established between thisNode and the subnet peer.
+- `refreshPeerConnections()` - is periodically called by the Timer Controller. It checks to see if thisNode is still connected to all the subnet peers. It will refresh the connection if they have been disconnected. Circuit Relays are used to connect to other subnet peers, and each known circuit relay will be cycled through until a connection can be established between thisNode and the subnet peer.
 
 ### Relays
 
 The `relay-use-cases.js` library controls the interactions between thisNode and the Circuit Relays that it knows about.
 
-- `initializeRelays()` - The ipfs-coord library comes with a pre-programmed list of Circuit Relay nodes. This list is stored in `config/bootstrap-circuit-relays.jd`. The `initializeRelays()` method is called once at startup to connect to these relays. This is what 'bootstraps' thisNode to the IPFS network and allows it to find subnetwork peers. After that initial bootstrap connection, thisNode will learn about and connect to other peers and circuit relays.
+- `initializeRelays()` - The ipfs-coord library comes with a pre-programmed list of Circuit Relay nodes. This list is stored in `config/bootstrap-circuit-relays.js`. The `initializeRelays()` method is called once at startup to connect to these relays. This is what 'bootstraps' thisNode to the IPFS sub-network and allows it to find subnetwork peers. After that initial bootstrap connection, thisNode will automatically learn about and connect to other peers and circuit relays.
 
 - `connectToCRs()` - This method is called periodically by the Timer Controller. It checks the connection between thisNode and each Circuit Relay node. If thisNode has lost its connection, the connection is restored.
 
@@ -104,7 +104,7 @@ Other subnet peers that thisNode tracks will pass on their public key. All messa
 
 ### pubsub-adapter.js
 
-The pubsub adapter can publish a message to a pubsub channel. There are (public) coordination channels that many peers subscribe to, and messages are published unencrypted.
+The pubsub adapter can publish a message to a pubsub channel, and route incoming messages to an appropriate handler. There are (public) coordination channels that many peers subscribe to, and messages are published unencrypted.
 
 Private messages between peers are _not_ controlled by this library. Those messages are published to OrbitDB and use pubsub messages indirectly, rather than being directly published to a pubsub channel by this library.
 
