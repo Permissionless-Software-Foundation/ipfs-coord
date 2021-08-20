@@ -1,6 +1,7 @@
 /*
   Unit tests for the main index.js file.
 */
+
 // npm libraries
 const assert = require('chai').assert
 const sinon = require('sinon')
@@ -78,13 +79,17 @@ describe('#ipfs-coord', () => {
   })
 
   describe('#start', () => {
-    it('should wrap the ipfs start() function', async () => {
-      // Mock the dependency.
+    it('should return true after ipfs-coord dependencies have been started.', async () => {
+      // Mock the dependencies.
       sandbox.stub(uut.adapters.ipfs, 'start').resolves({})
+      sandbox.stub(uut.useCases.thisNode, 'createSelf').resolves({})
+      sandbox.stub(uut.useCases.relays, 'initializeRelays').resolves({})
+      sandbox.stub(uut.useCases.pubsub, 'initializePubsub').resolves({})
+      sandbox.stub(uut.controllers.timer, 'startTimers').resolves({})
 
-      await uut.start()
+      const result = await uut.start()
 
-      assert.isOk(true, 'Not throwing an error is a pass')
+      assert.equal(result, true)
     })
   })
 })

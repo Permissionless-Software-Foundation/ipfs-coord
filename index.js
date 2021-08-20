@@ -1,20 +1,14 @@
 /*
-  An npm JavaScript library for front end web apps. Implements a minimal
-  Bitcoin Cash wallet.
+  A JS npm library for helping IPFS peers coordinate, find a common interest,
+  and stay connected around that interest.
+
+  See the specification document in the dev-docs directory.
 */
-
-/* eslint-disable no-async-promise-executor */
-
-// 'use strict'
 
 // local libraries
 const Adapters = require('./lib/adapters')
 const Controllers = require('./lib/controllers')
 const UseCases = require('./lib/use-cases')
-// const Ipfs = require('./lib/ipfs-lib')
-// const BchLib = require('./lib/bch-lib')
-
-// let _this // local global for 'this'.
 
 class IpfsCoord {
   constructor (localConfig = {}) {
@@ -37,7 +31,7 @@ class IpfsCoord {
     this.type = localConfig.type
 
     // localConfiguration of an optional 'status' log handler for log reports. If none
-    // is specified, default to console.log.
+    // is specified, defaults to console.log.
     if (localConfig.statusLog) {
       this.statusLog = localConfig.statusLog
     } else {
@@ -89,6 +83,8 @@ class IpfsCoord {
 
     // Start timer-based controllers.
     await this.controllers.timer.startTimers(this.thisNode, this.useCases)
+
+    return true
   }
 }
 

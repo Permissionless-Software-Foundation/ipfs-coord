@@ -13,6 +13,8 @@ This document contains a high-level, human-readable specification for the four m
 
 This reflects the [Clean Architecture](https://troutsblog.com/blog/clean-architecture) design pattern.
 
+After the ipfs-coord library is instantiated, it will have properties `useCases`, `controllers`, and `adapters` that have methods corresponding to the descriptions in this document. Apps can exercise the features of the ipfs-coord library through this object-oriented structure.
+
 ## Configuration
 
 When instantiating the ipfs-coord library, the following configuration inputs can be passed to its constructor via an object with the properties indicated below. Be sure to check out the [examples directory](../examples) for examples on how to instantiate the library with different configurations.
