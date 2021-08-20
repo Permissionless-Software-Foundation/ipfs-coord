@@ -1,5 +1,7 @@
 This markdown is for holding temporary piece of text for editing.
 
+## Use cases
+
 ### Peers
 
 Peers are other IPFS nodes that the application wants to keep track of. These are peers that make up the subnet.
@@ -35,3 +37,26 @@ Properties maintained for each Service:
 - `version` - The protocol version that this Service offers.
 - `description` - A brief description of the Service.
 - `documentation` - An optional link to any API documentation needed to consume the Service.
+
+## Controllers
+
+### Pubsub
+
+New messages arriving for a pubsub channel will trigger an event that will cause this library to process and route the message to the appropriate handler. A few classes of message:
+
+- Announcement - Announcement messages from other peers will be routed to the Peer Entity. If its a new peer, it will be added to the list of known peers.
+
+  - Services - A peer advertising specific services will be passed on to the Services Entity.
+  - Relays - A peer advertising Circuit Relay capability will be passed on to the Relays Entity.
+
+- Private Messages - Each peer has a pubsub channel that is the same name as its IPFS ID. Messages arriving on this channel are expected to be e2e encrypted with the peers public key. Any unencrypted messages are ignored.
+
+### Timers
+
+- Announce Self - This controller announces the presence of the IPFS node by publishing a message to the general coordination pubsub channel. If it's a service provider, it will also announce itself in the service-specific coordination channel.
+
+- Update Peers - This controller reviews the data about each known peer, and prunes away any peers that have not announced themselves for a period of time. It attempts to renew connections to each peer in the list.
+
+- Update Relays - This controller reviews the data about each known Circuit Relay. It attempts to renew the connection to each known Circuit Relay.
+
+- Update Services - This controller reviews the data about each known Service Provider. It prunes any services that it has not been able to connect to over a period of time.

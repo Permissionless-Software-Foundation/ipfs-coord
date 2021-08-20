@@ -50,101 +50,64 @@ The `this-node-use-cases.js` library contains the following Use Cases:
 
 - `refreshPeerConnections()` - is periodically called by the Timer Controller. It checks to see if thisNode is still connected to the all the subnet peers. It will refresh the connection if not. Circuit Relays are used to connect to other subnet peers, and each known circuit relay will be cycled through until a connection can be established between thisNode and the subnet peer.
 
-* Announce Self - Announces itself periodically on the general coordination pubsub channel.
-* Announce Service - If the node is a Service Provider, this use-case announces the service on the appropriate service-specific coordination channel.
-* Generate BCH ID - Generates a BCH key pair, used for payments and encryption.
-* Generate Private Key - Generates the private key from the mnemonic. Used for decrypting messages.
-
 ### Relays
 
-The `relay-use-cases.js` library controlls the interactions between thisNode and the Circuit Relays that it knows about.
+The `relay-use-cases.js` library controls the interactions between thisNode and the Circuit Relays that it knows about.
 
 - `initializeRelays()` - The ipfs-coord library comes with a pre-programmed list of Circuit Relay nodes. This list is stored in `config/bootstrap-circuit-relays.jd`. The `initializeRelays()` method is called once at startup to connect to these relays. This is what 'bootstraps' thisNode to the IPFS network and allows it to find subnetwork peers. After that initial bootstrap connection, thisNode will learn about and connect to other peers and circuit relays.
 
 - `connectToCRs()` - This method is called periodically by the Timer Controller. It checks the connection between thisNode and each Circuit Relay node. If thisNode has lost its connection, the connection is restored.
 
-### Peers
-
-- Create - When a new peer announces itself in the general coordination pubsub channel, it should be added to the state and tracked.
-- Update - Update an existing record with newly received data.
-- Prune - Remove a peer if it has not been seen after a period of time.
-- Connect - Refresh connections to the list of known peers.
-
-### Pubsub Channels
-
-- parseMessage() - Convert an incoming message into a JSON object.
-- subscribeToChannel() - Subscribe to a pubsub channel.
-- publishToChannel() - Publish a message to a pubsub channel.
-
-### Services
-
-- Create - Add a new Service to the list of known Services.
-- Update - Update a Service entry with newly received data.
-- Prune - Remove a Service from the list of known Services.
-
-## Adapters
-
-Adapters are the 'outputs' of this library. They are the interfaces that this library manipulates in order to maintain the state of the Entities. Adapters ensure that the business logic doesn't need to know any specific information about the outputs.
-
-### bch-js
-
-bch-js is the Bitcoin Cash (BCH) library used to handle payments and end-to-end encryption in peer communication. When the IPFS node is started, it generates a BCH address to receive payments in BCH, and an SLP address to recieve payments in SLP tokens. The same private key used to generate these addresses is used to decrypt incoming pubsub messages.
-
-### IPFS
-
-This library is designed primarily to control an IPFS node. However, it does not load IPFS directly. It expects the developer to inject an instance of js-ipfs when instantiating this library.
-
-### OrbitDB
-
-[OrbitDB](https://orbitdb.org/) is a database that runs on top of IPFS. It used in this library to prevent 'dropped calls'. As nodes are constantly adjusting their network connections, they can sometimes miss pubsub messages. Other peers in the subnet maintain short-lived logs of the encrypted messages the peers they are connected to. This allows them to pass the message on when the peer reconnects to them, preventing 'dropped calls'. These logs are abandoned after an hour and a new log is created, to prevent them from growing too large.
-
-- Create Receiver Database - Create a new database for receiving private messages.
-- Handle Replication Event - Receive and decrypt an incoming message, then route it to the appropriate message handler.
-- `sendToDb()` - Send a string of text to another peers personal database.
-- `connectToPeerDb()` - Connect to another peers personal OrbitDB.
-
-### Encryption
-
-The encryption adapter is responsible for encryption and decryption of pubsub messages. It uses the same Eliptic Curve cryptography used by the Bitcoin protocol. The same private key that is used to generate the BCH address assigned to the node is the same private key used to decrypt incoming messages.
-
-- encrypt message
-- decrypt message
-- send message - send an encrypted message to a given peer
-
 ### Pubsub
 
-The pubsub adapter can publish a message to a pubsub channel. There are (public) coordination channels that many peers subscribe to, and messages are published unencrypted. There are (private) channels between two peers, where content is encrypted before being broadcast.
+The `pubsub-use-cases.js` has a single method:
 
-### Schema
-
-The schema library contain formatted JSON objects that are used to generate a standardized messages for communication between peers.
-
-- `announcement()` - Generate an announcement message to broadcast to the general coordination channel.
-- `chat()` - Generate a chat message.
+- `initializePubsub()` is called at startup to connect the node to the general coordination pubsub channel. This is the channel where other apps running the ipfs-coord library announce themselves to other peers in the subnet.
 
 ## Controllers
 
 Controllers are inputs to the system. When a controller is activated, it causes the system to react in some way.
 
-### Pubsub
-
-New messages arriving for a pubsub channel will trigger an event that will cause this library to process and route the message to the appropriate handler. A few classes of message:
-
-- Announcement - Announcement messages from other peers will be routed to the Peer Entity. If its a new peer, it will be added to the list of known peers.
-
-  - Services - A peer advertising specific services will be passed on to the Services Entity.
-  - Relays - A peer advertising Circuit Relay capability will be passed on to the Relays Entity.
-
-- Private Messages - Each peer has a pubsub channel that is the same name as its IPFS ID. Messages arriving on this channel are expected to be e2e encrypted with the peers public key. Any unencrypted messages are ignored.
-
 ### Timers
 
 The controllers listed in this section are activated periodically by a timer. They do routine maintenance.
 
-- Announce Self - This controller announces the presence of the IPFS node by publishing a message to the general coordination pubsub channel. If it's a service provider, it will also announce itself in the service-specific coordination channel.
+- `startTimers()` is called at startup. It initializes the other timer controllers.
 
-- Update Peers - This controller reviews the data about each known peer, and prunes away any peers that have not announced themselves for a period of time. It attempts to renew connections to each peer in the list.
+- `manageCircuitRelays()` calls the `connectToCRs()` Use Case to refresh connections to other circuit relays.
 
-- Update Relays - This controller reviews the data about each known Circuit Relay. It attempts to renew the connection to each known Circuit Relay.
+- `manageAnnouncement()` periodically announces the presence of thisNode Entity on the general coordination pubsub channel. It allows other subnet peers to find the node.
 
-- Update Services - This controller reviews the data about each known Service Provider. It prunes any services that it has not been able to connect to over a period of time.
+- `managePeers()` checks the list of known subnet peers tracked by thisNode Entity. It will restore the connection to each peer if they get disconnected.
+
+## Adapters
+
+Adapters are the 'outputs' of the system. They are the interfaces that this library manipulates in order to maintain the state of the Entities. Adapters ensure that the business logic doesn't need to know any specific information about the outputs.
+
+### bch-adapter.js
+
+[bch-js](https://github.com/Permissionless-Software-Foundation/bch-js) is the Bitcoin Cash (BCH) library used to handle payments and end-to-end encryption in peer communication. When the IPFS node is started, it generates a BCH address to receive payments in BCH, and an SLP address to receive payments in SLP tokens. The same private key used to generate these addresses is used to decrypt incoming pubsub messages, and the public key is passed on to other peers so that they can encrypt messages they want to send thisNode.
+
+### ipfs-adapter.js
+
+This library is designed primarily to control an IPFS node. However, it does not load IPFS directly. It expects the developer to inject an instance of js-ipfs when instantiating this library.
+
+### orbitdb-adapter.js
+
+[OrbitDB](https://orbitdb.org/) is a database that runs on top of IPFS. It's used in this library to prevent 'dropped calls'. As nodes are constantly adjusting their network connections, they can sometimes miss pubsub messages. Other peers in the subnet maintain short-lived logs of the encrypted messages directed at the peers they are connected to. This allows them to pass the message on when the peer reconnects to them, preventing 'dropped calls'. These logs are abandoned after an hour and a new log is created, to prevent them from growing too large.
+
+### encryption-adapter.js
+
+The encryption adapter is responsible for encryption and decryption of pubsub messages. It uses the same Eliptic Curve cryptography used by the Bitcoin protocol. The same private key that is used to generate the BCH address assigned to thisNode is the same private key used to decrypt incoming messages.
+
+Other subnet peers that thisNode tracks will pass on their public key. All messages sent between nodes is encrypted with the receivers public key. Any unencrypted messages are ignored.
+
+### pubsub-adapter.js
+
+The pubsub adapter can publish a message to a pubsub channel. There are (public) coordination channels that many peers subscribe to, and messages are published unencrypted.
+
+Private messages between peers are _not_ controlled by this library. Those messages are published to OrbitDB and use pubsub messages indirectly, rather than being directly published to a pubsub channel by this library.
+
+### schema.js
+
+The schema library contain formatted JSON objects that are used to generate a standardized messages for communication between peers. The schema.js library is instantiated at startup and appended to the thisNode Entity.
