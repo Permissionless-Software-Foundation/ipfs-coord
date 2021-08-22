@@ -28,7 +28,9 @@ class AdaptersMock {
         }
       }
     }
-    this.pubsub = {}
+    this.pubsub = {
+      subscribeToPubsubChannel: () => {}
+    }
     this.encryption = {}
     this.orbit = {
       createRcvDb: () => {
