@@ -8,13 +8,12 @@ const sinon = require('sinon')
 const cloneDeep = require('lodash.clonedeep')
 
 // local libraries
-const Peers = require('../../lib/peers')
-const CircuitRelay = require('../../lib/circuit-relay')
-const Pubsub = require('../../lib/pubsub')
-const ipfsLib = require('../mocks/ipfs-mock')
-const mockData = require('../mocks/pubsub-mocks')
+const Pubsub = require('../../../lib/adapters/pubsub-adapter')
+const ipfsLib = require('../../mocks/ipfs-mock')
+const mockData = require('../../mocks/pubsub-mocks')
+const IPFSAdapter = require('../../../lib/adapters/ipfs-adapter')
 
-describe('#pubsub', () => {
+describe('#pubsub-adapter', () => {
   let sandbox
   let uut
   let ipfs
@@ -24,22 +23,18 @@ describe('#pubsub', () => {
     sandbox = sinon.createSandbox()
 
     ipfs = cloneDeep(ipfsLib)
+    const statusLog = () => {}
+
+    const ipfsAdapter = new IPFSAdapter({ ipfs, statusLog })
 
     // Instantiate the library under test. Must instantiate dependencies first.
-    const config = {
-      ipfs,
-      type: 'node.js',
-      statusLog: () => {}
-    }
-    config.cr = new CircuitRelay(config)
-    config.peers = new Peers(config)
-    uut = new Pubsub(config)
+    uut = new Pubsub({ ipfs: ipfsAdapter, statusLog })
   })
 
   afterEach(() => sandbox.restore())
 
   describe('#constructor', () => {
-    it('should throw an error if config object is not specified', () => {
+    it('should throw an error if IPFS adapter not specified', () => {
       try {
         uut = new Pubsub()
 
@@ -47,26 +42,12 @@ describe('#pubsub', () => {
       } catch (err) {
         assert.include(
           err.message,
-          'Must pass a config object when instantiating the pubsub library.'
+          'Instance of IPFS adapter required when instantiating Pubsub Adapter.'
         )
       }
     })
 
-    it('should throw an error if ipfs instance is not passed in', () => {
-      try {
-        uut = new Pubsub({})
-        console.log('uut: ', uut)
-
-        assert.fail('Unexpected result')
-      } catch (err) {
-        assert.include(
-          err.message,
-          'Must pass in an instance of IPFS when instantiating the pubsub library.'
-        )
-      }
-    })
-
-    it('should throw an error if peer instance is not passed in', () => {
+    it('should throw an error if status log handler not specified', () => {
       try {
         uut = new Pubsub({ ipfs })
 
@@ -74,7 +55,7 @@ describe('#pubsub', () => {
       } catch (err) {
         assert.include(
           err.message,
-          'Must pass in an instance of Peers library when instantiating the pubsub library.'
+          'A status log handler function required when instantitating Pubsub Adapter'
         )
       }
     })
@@ -82,7 +63,11 @@ describe('#pubsub', () => {
 
   describe('#subscribeToPubsubChannel', () => {
     it('should subscribe to a pubsub channel', async () => {
-      await uut.subscribeToPubsubChannel()
+      const chanName = 'test'
+      const handler = () => {}
+      const thisNodeId = 'testId'
+
+      await uut.subscribeToPubsubChannel(chanName, handler, thisNodeId)
 
       assert.equal(true, true, 'Not throwing an error is a pass')
     })
@@ -91,7 +76,7 @@ describe('#pubsub', () => {
       try {
         // Force an error
         sandbox
-          .stub(uut.ipfs.pubsub, 'subscribe')
+          .stub(uut.ipfs.ipfs.pubsub, 'subscribe')
           .rejects(new Error('test error'))
 
         await uut.subscribeToPubsubChannel()
@@ -107,12 +92,18 @@ describe('#pubsub', () => {
   describe('#parsePubsubMessage', () => {
     it('should parse a pubsub message', async () => {
       const handler = () => {}
-      // const handler = data =>
-      //   console.log(`data: ${JSON.stringify(data, null, 2)}`)
-
-      // mockData.mockMsg.data = JSON.stringify(mockData.mockMsg.data)
 
       await uut.parsePubsubMessage(mockData.mockMsg, handler)
+
+      assert.equal(true, true, 'Not throwing an error is a pass')
+    })
+
+    it('should quietly exit if message is from thisNode', async () => {
+      const handler = () => {}
+
+      mockData.mockMsg.from = 'thisNodeId'
+
+      await uut.parsePubsubMessage(mockData.mockMsg, handler, 'thisNodeId')
 
       assert.equal(true, true, 'Not throwing an error is a pass')
     })
@@ -120,10 +111,9 @@ describe('#pubsub', () => {
     // This is a top-level function. It should not throw errors, but log
     // the error message.
     it('should catch and handle errors', async () => {
-      // Force an error
-      sandbox.stub(uut.ipfs, 'id').throws(new Error('test error'))
-
       await uut.parsePubsubMessage()
+
+      assert.isOk(true, 'Not throwing an error is a pass')
     })
   })
 
@@ -141,7 +131,7 @@ describe('#pubsub', () => {
       try {
         // Force an error
         sandbox
-          .stub(uut.ipfs.pubsub, 'publish')
+          .stub(uut.ipfs.ipfs.pubsub, 'publish')
           .rejects(new Error('test error'))
 
         await uut.publishToPubsubChannel()
