@@ -13,7 +13,7 @@ const AdapterMock = require('../../mocks/adapter-mock')
 const adapters = new AdapterMock()
 const mockData = require('../../mocks/peers-mock')
 
-describe('#index.js-Use-Cases', () => {
+describe('#relay-Use-Cases', () => {
   let uut
   let sandbox
   let thisNode

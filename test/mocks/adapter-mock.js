@@ -5,10 +5,8 @@
 class AdaptersMock {
   constructor () {
     this.ipfs = {
-      state: {
-        ipfsPeerId: 'fake-id',
-        ipfsMultiaddrs: ['addr1', 'addr2']
-      },
+      ipfsPeerId: 'fake-id',
+      ipfsMultiaddrs: ['addr1', 'addr2'],
       ipfs: {
         pubsub: {
           subscribe: () => {}

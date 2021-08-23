@@ -10,7 +10,7 @@ const BCHJS = require('@psf/bch-js')
 // local libraries
 const BchLib = require('../../../lib/adapters/bch-adapter')
 
-describe('#bch-lib', () => {
+describe('#bch-adapter', () => {
   let sandbox
   let uut
   let bchjs

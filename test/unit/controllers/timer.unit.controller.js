@@ -13,7 +13,7 @@ const adapters = new AdapterMock()
 const UseCasesMock = require('../../mocks/use-case-mocks')
 const ThisNodeUseCases = require('../../../lib/use-cases/this-node-use-cases')
 
-describe('#index.js-Controllers', () => {
+describe('#timer-Controllers', () => {
   let uut
   let sandbox
   let useCases
