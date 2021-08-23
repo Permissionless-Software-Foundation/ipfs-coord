@@ -30,7 +30,9 @@ class AdaptersMock {
       subscribeToPubsubChannel: () => {},
       publishToPubsubChannel: () => {}
     }
-    this.encryption = {}
+    this.encryption = {
+      encryptMsg: () => {}
+    }
     this.orbit = {
       createRcvDb: () => {
         return { id: 'fake-orbit-id' }

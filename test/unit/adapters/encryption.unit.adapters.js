@@ -57,14 +57,18 @@ describe('#Encryption-adapter', () => {
     })
 
     it('should handle BAD MAC error messages', async () => {
-      // Force a BAD MAC error
-      sandbox
-        .stub(uut.bchEncrypt.encryption, 'decryptFile')
-        .rejects(new Error('Bad MAC'))
+      try {
+        // Force a BAD MAC error
+        sandbox
+          .stub(uut.bchEncrypt.encryption, 'decryptFile')
+          .rejects(new Error('Bad MAC'))
 
-      const result = await uut.decryptMsg('F6')
+        await uut.decryptMsg('F6')
 
-      assert.equal(result, '')
+        assert.fail('Unexpected code path')
+      } catch (err) {
+        assert.include(err.message, 'Bad MAC. Could not decrypt message.')
+      }
     })
 
     it('should catch and throw an error', async () => {
@@ -87,7 +91,9 @@ describe('#Encryption-adapter', () => {
     it('should catch and throw errors', async () => {
       try {
         const peer = {
-          encryptionKey: 'abc123'
+          data: {
+            encryptionKey: 'abc123'
+          }
         }
 
         await uut.encryptMsg(peer, 'testMsg')
@@ -106,7 +112,9 @@ describe('#Encryption-adapter', () => {
         .resolves('encryptedMsg')
 
       const peer = {
-        encryptionKey: 'abc123'
+        data: {
+          encryptionKey: 'abc123'
+        }
       }
 
       const result = await uut.encryptMsg(peer, 'testMsg')

@@ -23,5 +23,14 @@ async function start () {
 
   await ipfsCoord.start()
   console.log('IPFS and the coordination library is ready.')
+
+  // Used for debugging
+  setTimeout(async function () {
+    const thisNode = ipfsCoord.thisNode
+    console.log('\nthisNode: ', thisNode)
+    // console.log(
+    //   `thisNode.peerData: ${JSON.stringify(thisNode.peerData, null, 2)}`
+    // )
+  }, 20000)
 }
 start()
