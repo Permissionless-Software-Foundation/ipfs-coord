@@ -29,7 +29,8 @@ class AdaptersMock {
       }
     }
     this.pubsub = {
-      subscribeToPubsubChannel: () => {}
+      subscribeToPubsubChannel: () => {},
+      publishToPubsubChannel: () => {}
     }
     this.encryption = {}
     this.orbit = {
