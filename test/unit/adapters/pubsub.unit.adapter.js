@@ -1,5 +1,5 @@
 /*
-  Unit tests for pubsub.js library.
+  Unit tests for pubsub-adapter.js library.
 */
 
 // npm libraries
