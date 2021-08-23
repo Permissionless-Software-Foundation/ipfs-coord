@@ -17,7 +17,7 @@ This library will help IPFS peers discover one another, coordinate around a comm
 - Circuit Relays for censorship resistance and tunneling through firewalls
 - Bitcoin Cash for end-to-end encryption and payments.
 
-This library will automatically track peers, connects to them through circuit-relays, and end-to-end encrypts all communication with each node.
+This library will automatically track peers, connects to them through circuit-relays, and end-to-end encrypts all communication with each node. For more details, read the [ipfs-coord specification](./dev-docs/ipfs-coord-specificiation.md).
 
 Here are some use cases where IPFS node coordination is needed:
 
@@ -28,7 +28,7 @@ Here are some use cases where IPFS node coordination is needed:
 - Compute-as-a-service
 - Storage-as-a-service
 
-The ultimate goal for this library is to be a building block for building a replacement to the conventional REST API. APIs like REST or gRPC are incredibly valuable, but suffer from the same censorship risks as the rest of the web. An IPFS-based API, in a fully distributed network like IPFS, must have sophisticated coordination in order for it to function properly. This is that coordination library.
+The ultimate goal for this library is to be a building block for building a replacement to the conventional REST API. APIs like REST or gRPC are incredibly valuable, but suffer from the same censorship risks as the rest of the web (location-based addressing). An IPFS-based API, in a fully distributed network like IPFS, must have sophisticated coordination in order for it to function properly. ipfs-coord is that coordination library.
 
 Here is some videos and blog posts that preceded this work:
 
@@ -66,8 +66,7 @@ const IPFS = require('ipfs')
 const BCHJS = require('@psf/bch-js')
 const IpfsCoord = require('ipfs-coord')
 
-
-async start() {
+async function start() {
   // Create an instance of bch-js and IPFS.
   const bchjs = new BCHJS()
   const ipfs = await IPFS.create()
@@ -79,7 +78,7 @@ async start() {
     type: 'node.js'
   })
 
-  await this.ipfsCoord.isReady()
+  await ipfsCoord.start()
   console.log('IPFS and the coordination library is ready.')
 }
 start()
@@ -91,11 +90,10 @@ This example is exactly the same, except when instantiating the ipfs-coord libra
 
 ```javascript
 import IPFS from 'ipfs'
-import BCHJS from'@psf/bch-js'
+import BCHJS from '@psf/bch-js'
 import IpfsCoord from 'ipfs-coord'
 
-
-async start() {
+async function start() {
   // Create an instance of bch-js and IPFS.
   const bchjs = new BCHJS()
   const ipfs = await IPFS.create()
@@ -107,7 +105,7 @@ async start() {
     type: 'browser'
   })
 
-  await this.ipfsCoord.isReady()
+  await ipfsCoord.start()
   console.log('IPFS and the coordination library is ready.')
 }
 start()

@@ -4,7 +4,8 @@
 const ipfs = {
   id: () => {
     return {
-      id: 'myID'
+      id: 'myID',
+      addresses: ['addr1', 'addr2']
     }
   },
   swarm: {

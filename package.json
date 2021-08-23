@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "npm run lint && TEST=unit nyc mocha test/unit/",
+    "test": "npm run lint && TEST=unit nyc mocha --recursive test/unit/",
     "test:integration": "mocha --timeout 25000 test/integration/",
     "lint": "standard --env mocha --fix",
     "docs": "./node_modules/.bin/apidoc -i src/ -o docs",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "coverage:report": "nyc --reporter=html mocha test/unit/ --exit",
+    "coverage:report": "nyc --reporter=html mocha test/unit/ --exit --recursive",
     "test:temp": "npm run lint && TEST=unit nyc mocha -g '#generatePrivateKey' test/unit/"
   },
   "keywords": [
@@ -68,5 +68,8 @@
   "dependencies": {
     "bch-encrypt-lib": "^2.0.0",
     "orbit-db": "^0.26.1"
+  },
+  "peerDependencies": {
+    "ipfs": "0.55.4"
   }
 }

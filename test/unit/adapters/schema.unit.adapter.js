@@ -8,7 +8,7 @@ const sinon = require('sinon')
 // const cloneDeep = require('lodash.clonedeep')
 
 // local libraries
-const Schema = require('../../lib/schema')
+const Schema = require('../../../lib/adapters/schema')
 
 describe('#schema', () => {
   let sandbox
@@ -63,7 +63,7 @@ describe('#schema', () => {
       }
 
       const result = uut.announcement(announceObj)
-      console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.property(result, 'orbitdb')
       assert.equal(result.orbitdb, '567')
