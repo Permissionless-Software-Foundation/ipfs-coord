@@ -32,7 +32,7 @@ const BOOTSTRAP_NODE_CRs = [
   {
     name: 'ipfs-service-provider.fullstackcash.nl',
     multiaddr:
-      '/ip4/157.90.28.11/tcp/4002/p2p/QmSNwrec3GjpzLA8coJiSzdrGzKMELDBjsnsqwkNXDJWz6',
+      '/ip4/157.90.28.11/tcp/4001/p2p/QmSNwrec3GjpzLA8coJiSzdrGzKMELDBjsnsqwkNXDJWz6',
     connected: false,
     ipfsId: 'QmbyYXKbnAmMbMGo8LRBZ58jYs58anqUzY1m4jxDmhDsjd'
   },
