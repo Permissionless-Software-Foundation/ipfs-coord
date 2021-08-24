@@ -79,7 +79,37 @@ describe('#ipfs-adapter', () => {
       assert.equal(result, true)
     })
 
+    it('should report status when debugLevel is greater than zero', async () => {
+      uut.debugLevel = 1
+
+      const result = await uut.connectToPeer('fakeId')
+
+      assert.equal(result, true)
+    })
+
     it('should return false when issues connecting to peer', async () => {
+      // Force an error
+      sandbox.stub(uut.ipfs.swarm, 'connect').rejects(new Error('test error'))
+
+      const result = await uut.connectToPeer('fakeId')
+
+      assert.equal(result, false)
+    })
+
+    it('should report connection errors at debugLevel 1', async () => {
+      uut.debugLevel = 1
+
+      // Force an error
+      sandbox.stub(uut.ipfs.swarm, 'connect').rejects(new Error('test error'))
+
+      const result = await uut.connectToPeer('fakeId')
+
+      assert.equal(result, false)
+    })
+
+    it('should report full errors at debugLevel 2', async () => {
+      uut.debugLevel = 2
+
       // Force an error
       sandbox.stub(uut.ipfs.swarm, 'connect').rejects(new Error('test error'))
 

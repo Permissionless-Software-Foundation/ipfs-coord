@@ -30,6 +30,15 @@ class IpfsCoord {
     }
     this.type = localConfig.type
 
+    // Retrieve and/or set the debug level.
+    // 0 = no debug information.
+    // 1 = status logs
+    // 2 = verbose errors about peer connections
+    this.debugLevel = parseInt(localConfig.debugLevel)
+    if (!this.debugLevel) this.debugLevel = 0
+    localConfig.debugLevel = this.debugLevel
+    console.log(`ipfs-coord debug level: ${localConfig.debugLevel}`)
+
     // localConfiguration of an optional 'status' log handler for log reports. If none
     // is specified, defaults to console.log.
     if (localConfig.statusLog) {

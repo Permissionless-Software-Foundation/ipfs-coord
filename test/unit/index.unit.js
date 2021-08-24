@@ -76,6 +76,47 @@ describe('#ipfs-coord', () => {
         privateLog: console.log
       })
     })
+
+    it('should set debugLevel to 0 if not specified', () => {
+      const bchjs = new BCHJS()
+      uut = new IpfsCoord({
+        bchjs,
+        ipfs,
+        type: 'node.js',
+        statusLog: console.log,
+        privateLog: console.log
+      })
+
+      assert.equal(uut.debugLevel, 0)
+    })
+
+    it('should set debugLevel to 2 if specified', () => {
+      const bchjs = new BCHJS()
+      uut = new IpfsCoord({
+        bchjs,
+        ipfs,
+        type: 'node.js',
+        statusLog: console.log,
+        privateLog: console.log,
+        debugLevel: 2
+      })
+
+      assert.equal(uut.debugLevel, 2)
+    })
+
+    it('should default debugLevel to 0 non-integer is used', () => {
+      const bchjs = new BCHJS()
+      uut = new IpfsCoord({
+        bchjs,
+        ipfs,
+        type: 'node.js',
+        statusLog: console.log,
+        privateLog: console.log,
+        debugLevel: 'abcd'
+      })
+
+      assert.equal(uut.debugLevel, 0)
+    })
   })
 
   describe('#start', () => {

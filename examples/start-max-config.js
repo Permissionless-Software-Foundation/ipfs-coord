@@ -37,7 +37,8 @@ async function start () {
     privateLog: console.log, // Replace with your own log.
     isCircuitRelay: false, // Set to true to provide Circuit Relay functionality.
     apiInfo: 'Link to API documentation if applicable',
-    announceJsonLd: announceJson
+    announceJsonLd: announceJson,
+    debugLevel: 2
   })
 
   await ipfsCoord.start()
