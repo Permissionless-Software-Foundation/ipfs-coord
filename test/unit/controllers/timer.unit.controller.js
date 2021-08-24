@@ -86,6 +86,14 @@ describe('#timer-Controllers', () => {
       assert.isOk(true, 'Not throwing an error is a pass')
     })
 
+    it('should give status update if debugLevel is true', async () => {
+      uut.debugLevel = 1
+
+      await uut.manageCircuitRelays({}, useCases)
+
+      assert.isOk(true, 'Not throwing an error is a pass')
+    })
+
     it('should catch and report an error', async () => {
       // Force an error
       sandbox
@@ -105,6 +113,14 @@ describe('#timer-Controllers', () => {
       assert.equal(result, true)
     })
 
+    it('should give status update if debugLevel is true', async () => {
+      uut.debugLevel = 1
+
+      const result = await uut.manageAnnouncement(thisNode, useCases)
+
+      assert.equal(result, true)
+    })
+
     it('should catch and report an error', async () => {
       // Force an error
       sandbox
@@ -119,6 +135,14 @@ describe('#timer-Controllers', () => {
 
   describe('#managePeers', () => {
     it('should refresh connections to peers', async () => {
+      const result = await uut.managePeers(thisNode, useCases)
+
+      assert.equal(result, true)
+    })
+
+    it('should give status update if debugLevel is true', async () => {
+      uut.debugLevel = 1
+
       const result = await uut.managePeers(thisNode, useCases)
 
       assert.equal(result, true)

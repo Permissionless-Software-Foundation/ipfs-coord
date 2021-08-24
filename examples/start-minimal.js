@@ -17,7 +17,7 @@ async function start () {
   const ipfsCoord = new IpfsCoord({
     ipfs,
     bchjs,
-    debugLevel: 0,
+    debugLevel: 2,
     type: 'node.js'
     // type: 'browser'
   })
