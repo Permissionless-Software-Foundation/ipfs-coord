@@ -8,14 +8,14 @@ const BOOTSTRAP_BROWSER_CRs = [
   {
     name: 'ipfs-service-provider.fullstackcash.nl',
     multiaddr:
-      '/dns4/ipfs-service-provider.fullstackcash.nl/tcp/443/wss/ipfs/QmbyYXKbnAmMbMGo8LRBZ58jYs58anqUzY1m4jxDmhDsjd',
+      '/dns4/ipfs-service-provider.fullstackcash.nl/tcp/443/wss/ipfs/QmSNwrec3GjpzLA8coJiSzdrGzKMELDBjsnsqwkNXDJWz6',
     connected: false,
     ipfsId: 'QmbyYXKbnAmMbMGo8LRBZ58jYs58anqUzY1m4jxDmhDsjd'
   },
   {
     name: 'go-ipfs-wss.fullstackcash.nl',
     multiaddr:
-      '/dns4/go-ipfs-wss.fullstackcash.nl/tcp/443/wss/ipfs/QmTtXA18C6sg3ji9zem4wpNyoz9m4UZT85mA2D2jx2gzEk',
+      '/dns4/go-ipfs-wss.fullstackcash.nl/tcp/443/wss/ipfs/12D3KooWBYvNFKtQE3Hapi4NJeM9dLu66iTjyT6HBBmu8rzsiDRE',
     connected: false,
     ipfsId: 'QmTtXA18C6sg3ji9zem4wpNyoz9m4UZT85mA2D2jx2gzEk'
   }
@@ -32,14 +32,14 @@ const BOOTSTRAP_NODE_CRs = [
   {
     name: 'ipfs-service-provider.fullstackcash.nl',
     multiaddr:
-      '/ip4/157.90.28.11/tcp/4002/p2p/QmbyYXKbnAmMbMGo8LRBZ58jYs58anqUzY1m4jxDmhDsjd',
+      '/ip4/157.90.28.11/tcp/4002/p2p/QmSNwrec3GjpzLA8coJiSzdrGzKMELDBjsnsqwkNXDJWz6',
     connected: false,
     ipfsId: 'QmbyYXKbnAmMbMGo8LRBZ58jYs58anqUzY1m4jxDmhDsjd'
   },
   {
     name: 'go-ipfs.fullstackcash.nl',
     multiaddr:
-      '/ip4/162.55.59.102/tcp/4001/p2p/QmTtXA18C6sg3ji9zem4wpNyoz9m4UZT85mA2D2jx2gzEk',
+      '/ip4/162.55.59.102/tcp/4001/p2p/12D3KooWBYvNFKtQE3Hapi4NJeM9dLu66iTjyT6HBBmu8rzsiDRE',
     connected: false,
     ipfsId: 'QmTtXA18C6sg3ji9zem4wpNyoz9m4UZT85mA2D2jx2gzEk'
   }
