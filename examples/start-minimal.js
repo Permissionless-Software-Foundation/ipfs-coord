@@ -17,6 +17,7 @@ async function start () {
   const ipfsCoord = new IpfsCoord({
     ipfs,
     bchjs,
+    debugLevel: 0,
     type: 'node.js'
     // type: 'browser'
   })
@@ -25,12 +26,12 @@ async function start () {
   console.log('IPFS and the coordination library is ready.')
 
   // Used for debugging
-  setTimeout(async function () {
-    const thisNode = ipfsCoord.thisNode
-    console.log('\nthisNode: ', thisNode)
-    // console.log(
-    //   `thisNode.peerData: ${JSON.stringify(thisNode.peerData, null, 2)}`
-    // )
-  }, 20000)
+  // setTimeout(async function () {
+  //   const thisNode = ipfsCoord.thisNode
+  //   console.log('\nthisNode: ', thisNode)
+  //   // console.log(
+  //   //   `thisNode.peerData: ${JSON.stringify(thisNode.peerData, null, 2)}`
+  //   // )
+  // }, 20000)
 }
 start()
