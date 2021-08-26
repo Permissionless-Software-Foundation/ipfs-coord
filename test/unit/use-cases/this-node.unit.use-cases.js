@@ -106,6 +106,27 @@ describe('#thisNode-Use-Cases', () => {
       assert.equal(result, true)
     })
 
+    it('should update an existing peer', async () => {
+      const announceObj = {
+        from: 'peerId',
+        data: {}
+      }
+
+      await uut.createSelf({ type: 'node.js' })
+
+      // Add the new peer
+      await uut.addSubnetPeer(announceObj)
+
+      // Simulate a second announcement object.
+      const result = await uut.addSubnetPeer(announceObj)
+      // console.log('result: ', result)
+
+      assert.equal(result, true)
+
+      // peerData array should only have one peer.
+      assert.equal(uut.thisNode.peerData.length, 1)
+    })
+
     it('should catch and throw an error', async () => {
       try {
         const announceObj = {
@@ -117,7 +138,7 @@ describe('#thisNode-Use-Cases', () => {
         assert.fail('Unexpected code path')
       } catch (err) {
         // console.log(err)
-        assert.include(err.message, 'Cannot read property')
+        assert.include(err.message, 'Cannot set property')
       }
     })
   })
