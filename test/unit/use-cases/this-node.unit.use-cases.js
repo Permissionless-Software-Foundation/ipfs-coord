@@ -127,7 +127,7 @@ describe('#thisNode-Use-Cases', () => {
       assert.equal(uut.thisNode.peerData.length, 1)
     })
 
-    it('should catch and throw an error', async () => {
+    it('should catch and report an error', async () => {
       try {
         const announceObj = {
           from: 'peerId'
@@ -135,10 +135,10 @@ describe('#thisNode-Use-Cases', () => {
 
         await uut.addSubnetPeer(announceObj)
 
-        assert.fail('Unexpected code path')
+        assert.isOk(true, 'Not throwing an error is a pass')
       } catch (err) {
         // console.log(err)
-        assert.include(err.message, 'Cannot set property')
+        assert.fail('Unexpected code path')
       }
     })
   })
