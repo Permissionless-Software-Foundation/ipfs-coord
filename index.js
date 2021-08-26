@@ -85,7 +85,9 @@ class IpfsCoord {
     // console.log('thisNode: ', this.thisNode)
 
     // Connect to Circuit Relays
-    await this.useCases.relays.initializeRelays(this.thisNode)
+    // Note: Deliberatly *not* using await here, so that it doesn't block startup
+    // of ipfs-service-provider.
+    this.useCases.relays.initializeRelays(this.thisNode)
 
     // Subscribe to Pubsub Channels
     await this.useCases.pubsub.initializePubsub(this.thisNode)
