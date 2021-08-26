@@ -84,18 +84,36 @@ class IpfsCoord {
     this.thisNode = await this.useCases.thisNode.createSelf({ type: this.type })
     // console.log('thisNode: ', this.thisNode)
 
-    // Connect to Circuit Relays
-    // Note: Deliberatly *not* using await here, so that it doesn't block startup
-    // of ipfs-service-provider.
-    this.useCases.relays.initializeRelays(this.thisNode)
-
     // Subscribe to Pubsub Channels
     await this.useCases.pubsub.initializePubsub(this.thisNode)
 
     // Start timer-based controllers.
     await this.controllers.timer.startTimers(this.thisNode, this.useCases)
 
+    // Kick-off initial connection to Circuit Relays and Peers.
+    // Note: Deliberatly *not* using await here, so that it doesn't block startup
+    // of ipfs-service-provider.
+    this._initializeConnections()
+
     return true
+  }
+
+  // This function kicks off initial connections to the circuit relays and then
+  // peers. This function is intended to be called once at startup. This handles
+  // the initial connections, but the timer-controller manages the connections
+  // after this initial function.
+  async _initializeConnections () {
+    try {
+      // Connect to Circuit Relays
+      await this.useCases.relays.initializeRelays(this.thisNode)
+      console.log('Initial connections to Circuit Relays complete.')
+
+      await this.useCases.thisNode.refreshPeerConnections()
+      console.log('Initial connections to subnet Peers complete.')
+    } catch (err) {
+      console.error('Error in _initializeConnections()')
+      throw err
+    }
   }
 }
 
