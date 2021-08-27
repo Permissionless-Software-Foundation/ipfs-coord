@@ -15,8 +15,11 @@ class AdaptersMock {
       getPeers: () => {},
       connectToPeer: () => {}
     }
+
     this.bchjs = {}
+
     this.type = 'node.js'
+
     this.bch = {
       generateBchId: () => {
         return {
@@ -31,18 +34,25 @@ class AdaptersMock {
         }
       }
     }
+
     this.pubsub = {
       subscribeToPubsubChannel: () => {},
       publishToPubsubChannel: () => {}
     }
+
     this.encryption = {
       encryptMsg: () => {}
     }
+
     this.orbit = {
       createRcvDb: () => {
         return { id: 'fake-orbit-id' }
       },
       connectToPeerDb: () => {}
+    }
+
+    this.log = {
+      statusLog: () => {}
     }
   }
 }
