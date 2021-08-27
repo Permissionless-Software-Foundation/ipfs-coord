@@ -18,8 +18,10 @@ describe('#ipfs-adapter', () => {
     // Restore the sandbox before each test.
     sandbox = sinon.createSandbox()
 
-    const statusLog = () => {}
-    uut = new IPFSAdapter({ ipfs, statusLog })
+    const log = {
+      statusLog: () => {}
+    }
+    uut = new IPFSAdapter({ ipfs, log })
   })
 
   afterEach(() => sandbox.restore())
@@ -36,7 +38,7 @@ describe('#ipfs-adapter', () => {
       }
     })
 
-    it('should throw an error if statusLog instance is not passed in', () => {
+    it('should throw an error if log instance is not passed in', () => {
       try {
         uut = new IPFSAdapter({ ipfs })
       } catch (err) {
@@ -137,6 +139,35 @@ describe('#ipfs-adapter', () => {
       } catch (err) {
         assert.include(err.message, 'test error')
       }
+    })
+  })
+
+  describe('#disconnectFromPeer', () => {
+    it('should return true if thisNode is not connected to the peer', async () => {
+      // Mock dependencies
+      sandbox.stub(uut, 'getPeers').resolves([])
+
+      const result = await uut.disconnectFromPeer('testId')
+
+      assert.equal(result, true)
+    })
+
+    it('should disconnect if thisNode is connected to the peer', async () => {
+      // Mock dependencies
+      sandbox.stub(uut, 'getPeers').resolves([{ peer: 'testId' }])
+
+      const result = await uut.disconnectFromPeer('testId')
+
+      assert.equal(result, true)
+    })
+
+    it('should return false on error', async () => {
+      // Force an error
+      sandbox.stub(uut, 'getPeers').rejects(new Error('test error'))
+
+      const result = await uut.disconnectFromPeer('testId')
+
+      assert.equal(result, false)
     })
   })
 })

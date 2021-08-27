@@ -23,12 +23,14 @@ describe('#pubsub-adapter', () => {
     sandbox = sinon.createSandbox()
 
     ipfs = cloneDeep(ipfsLib)
-    const statusLog = () => {}
+    const log = {
+      statusLog: () => {}
+    }
 
-    const ipfsAdapter = new IPFSAdapter({ ipfs, statusLog })
+    const ipfsAdapter = new IPFSAdapter({ ipfs, log })
 
     // Instantiate the library under test. Must instantiate dependencies first.
-    uut = new Pubsub({ ipfs: ipfsAdapter, statusLog })
+    uut = new Pubsub({ ipfs: ipfsAdapter, log })
   })
 
   afterEach(() => sandbox.restore())

@@ -64,19 +64,6 @@ describe('#relay-Use-Cases', () => {
         )
       }
     })
-
-    it('should throw an error if statusLog is not included', () => {
-      try {
-        uut = new RelayUseCases({ adapters: {}, controllers: {} })
-
-        assert.fail('Unexpected code path')
-      } catch (err) {
-        assert.include(
-          err.message,
-          'Status log handler required when instantiating Relay Use Cases library.'
-        )
-      }
-    })
   })
 
   describe('#initializeRelays', () => {
@@ -159,6 +146,203 @@ describe('#relay-Use-Cases', () => {
       await uut.connectToCRs(thisNode)
 
       assert.equal(true, true, 'Not throwing an error is a success')
+    })
+  })
+
+  describe('#addRelay', () => {
+    it('should return true if peer is already in relayData array', async () => {
+      // Mock test data
+      const ipfsId = 'testId'
+      const thisNode = {
+        relayData: [{ ipfsId }]
+      }
+
+      const result = await uut.addRelay(ipfsId, thisNode)
+
+      assert.equal(result, true)
+    })
+
+    it('should connect to a peers multiaddr', async () => {
+      // Mock test data
+      const ipfsId = 'testId'
+      const thisNode = {
+        relayData: [],
+        peerData: [
+          {
+            data: {
+              ipfsId,
+              ipfsMultiaddrs: ['addr1']
+            }
+          }
+        ]
+      }
+
+      // Mock dependencies
+      sandbox.stub(uut.adapters.ipfs, 'connectToPeer').resolves(true)
+      sandbox
+        .stub(uut.adapters.ipfs, 'getPeers')
+        .resolves([{ peer: ipfsId, addr: 'addr1' }])
+
+      const result = await uut.addRelay(ipfsId, thisNode)
+
+      // console.log('thisNode: ', thisNode)
+
+      // Function should return true.
+      assert.equal(result, true)
+
+      // relayData array should be updated
+      assert.isArray(thisNode.relayData) // Its an array.
+      assert.equal(thisNode.relayData.length, 1) //  Should be one element
+
+      // Assert expected properties of the object.
+      assert.property(thisNode.relayData[0], 'multiaddr')
+      assert.property(thisNode.relayData[0], 'connected')
+      assert.property(thisNode.relayData[0], 'updatedAt')
+      assert.property(thisNode.relayData[0], 'ipfsId')
+      assert.property(thisNode.relayData[0], 'isBootstrap')
+      assert.property(thisNode.relayData[0], 'metrics')
+
+      // Assert expected values.
+      assert.equal(thisNode.relayData[0].multiaddr, 'addr1')
+      assert.equal(thisNode.relayData[0].connected, true)
+      assert.equal(thisNode.relayData[0].ipfsId, 'testId')
+      assert.equal(thisNode.relayData[0].isBootstrap, false)
+      assert.isArray(thisNode.relayData[0].metrics.aboutLatency)
+    })
+
+    it('should return false if thisNode can not connect to peer', async () => {
+      // Mock test data
+      const ipfsId = 'testId'
+      const thisNode = {
+        relayData: [],
+        peerData: [
+          {
+            data: {
+              ipfsId,
+              ipfsMultiaddrs: ['addr1']
+            }
+          }
+        ]
+      }
+
+      // Mock dependencies
+      sandbox.stub(uut.adapters.ipfs, 'connectToPeer').resolves(false)
+
+      const result = await uut.addRelay(ipfsId, thisNode)
+
+      assert.equal(result, false)
+    })
+
+    it('should return false on error', async () => {
+      const result = await uut.addRelay()
+
+      assert.equal(result, false)
+    })
+  })
+
+  describe('#measureRelays', () => {
+    it('should catch and throw errors', async () => {
+      try {
+        await uut.measureRelays()
+
+        assert.fail('Unexpected code path')
+      } catch (err) {
+        // console.log(err)
+        assert.include(err.message, 'Cannot read property')
+      }
+    })
+
+    it('should skip bootstrap relays', async () => {
+      // Mock test data
+      const thisNode = {
+        relayData: [
+          {
+            isBootstrap: true,
+            metrics: {
+              aboutLatency: []
+            }
+          }
+        ]
+      }
+
+      await uut.measureRelays(thisNode)
+      // console.log('thisNode: ', thisNode)
+
+      // Assert that the latecy metrics are unchanged.
+      assert.equal(thisNode.relayData[0].metrics.aboutLatency.length, 0)
+    })
+
+    it('should give disconnected relays the worst latency score', async () => {
+      // Mock test data
+      const thisNode = {
+        relayData: [
+          {
+            isBootstrap: false,
+            connected: false,
+            metrics: {
+              aboutLatency: []
+            }
+          }
+        ]
+      }
+
+      await uut.measureRelays(thisNode)
+      // console.log('thisNode: ', thisNode)
+
+      assert.equal(thisNode.relayData[0].metrics.aboutLatency[0], 10000)
+    })
+
+    it('should score the latency of a relay peer', async () => {
+      // Mock test data
+      const thisNode = {
+        relayData: [
+          {
+            isBootstrap: false,
+            connected: true,
+            metrics: {
+              aboutLatency: []
+            }
+          }
+        ]
+      }
+
+      // Mock dependencies
+      sandbox.stub(uut.adapters.bch.bchjs.Util, 'sleep').resolves()
+
+      await uut.measureRelays(thisNode)
+      // console.log(
+      //   'thisNode.relayData[0].metrics.aboutLatency: ',
+      //   thisNode.relayData[0].metrics.aboutLatency
+      // )
+
+      assert.isNumber(thisNode.relayData[0].metrics.aboutLatency[0])
+    })
+
+    it('should replace oldest data with new data', async () => {
+      // Mock test data
+      const thisNode = {
+        relayData: [
+          {
+            isBootstrap: false,
+            connected: true,
+            metrics: {
+              aboutLatency: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            }
+          }
+        ]
+      }
+
+      // Mock dependencies
+      sandbox.stub(uut.adapters.bch.bchjs.Util, 'sleep').resolves()
+
+      await uut.measureRelays(thisNode)
+      // console.log(
+      //   'thisNode.relayData[0].metrics.aboutLatency: ',
+      //   thisNode.relayData[0].metrics.aboutLatency
+      // )
+
+      // First element of '1' should have been shifted out and replaced by '2'
+      assert.equal(thisNode.relayData[0].metrics.aboutLatency[0], 2)
     })
   })
 })

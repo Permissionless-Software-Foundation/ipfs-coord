@@ -12,7 +12,8 @@ const ipfs = {
     connect: async () => {},
     peers: async () => {
       return []
-    }
+    },
+    disconnect: async () => {}
   },
   pubsub: {
     subscribe: async () => {},
