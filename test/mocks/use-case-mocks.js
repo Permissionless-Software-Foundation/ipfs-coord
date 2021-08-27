@@ -8,7 +8,8 @@ class UseCasesMock {
       refreshPeerConnections: () => {}
     }
     this.relays = {
-      connectToCRs: () => {}
+      connectToCRs: () => {},
+      addRelay: () => {}
     }
     this.pubsub = {}
   }

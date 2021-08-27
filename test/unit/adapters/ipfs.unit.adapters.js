@@ -139,4 +139,33 @@ describe('#ipfs-adapter', () => {
       }
     })
   })
+
+  describe('#disconnectFromPeer', () => {
+    it('should return true if thisNode is not connected to the peer', async () => {
+      // Mock dependencies
+      sandbox.stub(uut, 'getPeers').resolves([])
+
+      const result = await uut.disconnectFromPeer('testId')
+
+      assert.equal(result, true)
+    })
+
+    it('should disconnect if thisNode is connected to the peer', async () => {
+      // Mock dependencies
+      sandbox.stub(uut, 'getPeers').resolves([{ peer: 'testId' }])
+
+      const result = await uut.disconnectFromPeer('testId')
+
+      assert.equal(result, true)
+    })
+
+    it('should return false on error', async () => {
+      // Force an error
+      sandbox.stub(uut, 'getPeers').rejects(new Error('test error'))
+
+      const result = await uut.disconnectFromPeer('testId')
+
+      assert.equal(result, false)
+    })
+  })
 })

@@ -24,6 +24,11 @@ class AdaptersMock {
           slpAddress: 'slpAddress',
           publicKey: 'public-key'
         }
+      },
+      bchjs: {
+        Util: {
+          sleep: () => {}
+        }
       }
     }
     this.pubsub = {

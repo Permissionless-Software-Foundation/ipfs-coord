@@ -159,4 +159,27 @@ describe('#timer-Controllers', () => {
       assert.isOk(true, 'Not throwing an error is a pass')
     })
   })
+
+  describe('#searchForRelays', () => {
+    it('should find and relay-potential peers that are not in the relayData array', async () => {
+      // Mock test data
+      const thisNode = {
+        relayData: [{ ipfsId: 'id1' }],
+        peerData: [{ from: 'id2', data: { isCircuitRelay: true } }]
+      }
+
+      await uut.searchForRelays(thisNode, useCases)
+
+      // Cleanup test by disabling the interval
+      clearInterval(uut.relaySearch)
+
+      assert.isOk(true, 'Not throwing an error is a pass')
+    })
+
+    it('should report errors but not throw them', async () => {
+      await uut.searchForRelays()
+
+      assert.isOk(true, 'Not throwing an error is a pass')
+    })
+  })
 })
