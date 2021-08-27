@@ -45,6 +45,14 @@ const BOOTSTRAP_NODE_CRs = [
   }
 ]
 
+// {
+//   name: 'test',
+//   multiaddr:
+//     '/ip4/165.227.82.120/tcp/5401/p2p/QmbR6fos5MPVqZ2UbF4Li3rsmTEN9a6PgvdXqHij8ePEja',
+//   connected: false,
+//   ipfsId: 'QmbR6fos5MPVqZ2UbF4Li3rsmTEN9a6PgvdXqHij8ePEja'
+// }
+
 const bootstrapCircuitRelays = {
   browser: BOOTSTRAP_BROWSER_CRs,
   node: BOOTSTRAP_NODE_CRs
