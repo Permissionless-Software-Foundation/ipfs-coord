@@ -64,19 +64,6 @@ describe('#relay-Use-Cases', () => {
         )
       }
     })
-
-    it('should throw an error if statusLog is not included', () => {
-      try {
-        uut = new RelayUseCases({ adapters: {}, controllers: {} })
-
-        assert.fail('Unexpected code path')
-      } catch (err) {
-        assert.include(
-          err.message,
-          'Status log handler required when instantiating Relay Use Cases library.'
-        )
-      }
-    })
   })
 
   describe('#initializeRelays', () => {

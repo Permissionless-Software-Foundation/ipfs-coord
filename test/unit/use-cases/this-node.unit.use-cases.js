@@ -22,8 +22,7 @@ describe('#thisNode-Use-Cases', () => {
 
     uut = new ThisNodeUseCases({
       adapters,
-      controllers: {},
-      statusLog: () => {}
+      controllers: {}
     })
   })
 
@@ -56,24 +55,10 @@ describe('#thisNode-Use-Cases', () => {
       }
     })
 
-    it('should throw an error if statusLog is not included', () => {
-      try {
-        uut = new ThisNodeUseCases({ adapters: {}, controllers: {} })
-
-        assert.fail('Unexpected code path')
-      } catch (err) {
-        assert.include(
-          err.message,
-          'Must specify a status log handler when instantiating thisNode Use Cases library.'
-        )
-      }
-    })
-
     it('should instantiate the use cases library', () => {
       uut = new ThisNodeUseCases({
         adapters: {},
-        controllers: {},
-        statusLog: {}
+        controllers: {}
       })
 
       assert.property(uut, 'adapters')
