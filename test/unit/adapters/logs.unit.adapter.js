@@ -44,8 +44,12 @@ describe('#LogsAdapter', () => {
   })
 
   describe('#statusLog', () => {
-    it('should report string', () => {
+    it('should include object if defined', () => {
       uut.statusLog(1, 'test string', { message: 'obj message' })
+    })
+
+    it('should exclude object if undefined', () => {
+      uut.statusLog(1, 'test string')
     })
   })
 })
