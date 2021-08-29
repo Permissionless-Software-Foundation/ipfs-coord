@@ -182,4 +182,23 @@ describe('#timer-Controllers', () => {
       assert.isOk(true, 'Not throwing an error is a pass')
     })
   })
+
+  describe('#blacklist', () => {
+    it('should return true after executing the use case', async () => {
+      const result = await uut.blacklist(thisNode, useCases)
+
+      assert.equal(result, true)
+    })
+
+    it('should return false on error', async () => {
+      // Force an error
+      sandbox
+        .stub(useCases.thisNode, 'enforceBlacklist')
+        .rejects(new Error('test error'))
+
+      const result = await uut.blacklist(thisNode, useCases)
+
+      assert.equal(result, false)
+    })
+  })
 })
