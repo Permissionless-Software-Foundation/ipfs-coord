@@ -11,9 +11,11 @@ class UseCasesMock {
     this.relays = {
       connectToCRs: () => {},
       addRelay: () => {},
-      measureRelays: () => {}
+      measureRelays: () => {},
+      sortRelays: obj => obj
     }
     this.pubsub = {}
+    this.peer = {}
   }
 }
 
