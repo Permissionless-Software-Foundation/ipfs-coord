@@ -11,6 +11,10 @@ const cloneDeep = require('lodash.clonedeep')
 const OrbitDBAdapter = require('../../../lib/adapters/orbitdb-adapter')
 const mockDataLib = require('../../mocks/orbitdb-mock')
 
+const eventEmitter = {
+  emit: () => {}
+}
+
 describe('#orbitdb-adapter', () => {
   let sandbox
   let uut
@@ -24,7 +28,7 @@ describe('#orbitdb-adapter', () => {
       ipfs: {},
       encryption: {},
       privateLog: () => {},
-      eventEmitter: {}
+      eventEmitter
     }
     uut = new OrbitDBAdapter(orbitdbConfig)
 

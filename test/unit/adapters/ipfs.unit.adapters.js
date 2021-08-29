@@ -170,4 +170,26 @@ describe('#ipfs-adapter', () => {
       assert.equal(result, false)
     })
   })
+
+  describe('#disconnectFromMultiaddr', () => {
+    it('should return true when disconnect succeeds', async () => {
+      // Mock dependencies
+      sandbox.stub(uut.ipfs.swarm, 'disconnect').resolves()
+
+      const result = await uut.disconnectFromMultiaddr()
+
+      assert.equal(result, true)
+    })
+
+    it('should return false on error', async () => {
+      // Mock dependencies
+      sandbox
+        .stub(uut.ipfs.swarm, 'disconnect')
+        .rejects(new Error('test error'))
+
+      const result = await uut.disconnectFromMultiaddr()
+
+      assert.equal(result, false)
+    })
+  })
 })
