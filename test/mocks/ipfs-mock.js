@@ -18,6 +18,11 @@ const ipfs = {
   pubsub: {
     subscribe: async () => {},
     publish: async () => {}
+  },
+  config: {
+    set: () => {},
+    get: () => {},
+    getAll: () => {}
   }
 }
 

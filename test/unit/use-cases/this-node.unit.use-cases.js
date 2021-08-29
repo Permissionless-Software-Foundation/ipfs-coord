@@ -79,6 +79,9 @@ describe('#thisNode-Use-Cases', () => {
 
   describe('#addSubnetPeer', () => {
     it('should track a new peer', async () => {
+      // Mock dependencies
+      sandbox.stub(uut, 'isFreshPeer').returns(true)
+
       const announceObj = {
         from: 'peerId',
         data: {}
@@ -92,6 +95,9 @@ describe('#thisNode-Use-Cases', () => {
     })
 
     it('should update an existing peer', async () => {
+      // Mock dependencies
+      sandbox.stub(uut, 'isFreshPeer').returns(true)
+
       const announceObj = {
         from: 'peerId',
         data: {}

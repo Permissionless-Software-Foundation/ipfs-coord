@@ -111,6 +111,7 @@ describe('#relay-Use-Cases', () => {
 
       // Mock dependencies
       sandbox.stub(uut.adapters.ipfs, 'getPeers').resolves(mockData.swarmPeers)
+      sandbox.stub(uut, 'sortRelays').returns(thisNode.relayData)
 
       // uut.state.relays = crMockData.circuitRelays
       await uut.connectToCRs(thisNode)
@@ -127,6 +128,7 @@ describe('#relay-Use-Cases', () => {
 
       // Mock dependencies
       sandbox.stub(uut.adapters.ipfs, 'getPeers').resolves(mockData.swarmPeers)
+      sandbox.stub(uut, 'sortRelays').returns(thisNode.relayData)
 
       // uut.state.relays = crMockData.circuitRelays
       await uut.connectToCRs(thisNode)
@@ -141,6 +143,7 @@ describe('#relay-Use-Cases', () => {
       // Mock dependencies
       sandbox.stub(uut.adapters.ipfs, 'getPeers').resolves(mockData.swarmPeers2)
       sandbox.stub(uut.adapters.ipfs, 'connectToPeer').resolves(true)
+      sandbox.stub(uut, 'sortRelays').returns(thisNode.relayData)
 
       // uut.state.relays = crMockData.circuitRelays
       await uut.connectToCRs(thisNode)
@@ -171,7 +174,7 @@ describe('#relay-Use-Cases', () => {
           {
             data: {
               ipfsId,
-              ipfsMultiaddrs: ['addr1']
+              ipfsMultiaddrs: ['/ip4/addr1']
             }
           }
         ]
@@ -181,7 +184,7 @@ describe('#relay-Use-Cases', () => {
       sandbox.stub(uut.adapters.ipfs, 'connectToPeer').resolves(true)
       sandbox
         .stub(uut.adapters.ipfs, 'getPeers')
-        .resolves([{ peer: ipfsId, addr: 'addr1' }])
+        .resolves([{ peer: ipfsId, addr: '/ip4/addr1' }])
 
       const result = await uut.addRelay(ipfsId, thisNode)
 
@@ -203,7 +206,7 @@ describe('#relay-Use-Cases', () => {
       assert.property(thisNode.relayData[0], 'metrics')
 
       // Assert expected values.
-      assert.equal(thisNode.relayData[0].multiaddr, 'addr1')
+      assert.equal(thisNode.relayData[0].multiaddr, '/ip4/addr1')
       assert.equal(thisNode.relayData[0].connected, true)
       assert.equal(thisNode.relayData[0].ipfsId, 'testId')
       assert.equal(thisNode.relayData[0].isBootstrap, false)

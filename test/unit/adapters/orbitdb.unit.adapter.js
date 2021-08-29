@@ -23,7 +23,8 @@ describe('#orbitdb-adapter', () => {
     const orbitdbConfig = {
       ipfs: {},
       encryption: {},
-      privateLog: () => {}
+      privateLog: () => {},
+      eventEmitter: {}
     }
     uut = new OrbitDBAdapter(orbitdbConfig)
 
@@ -68,6 +69,19 @@ describe('#orbitdb-adapter', () => {
         assert.include(
           err.message,
           'A private log handler must be passed when instantiating the OrbitDB Adapter library.'
+        )
+      }
+    })
+
+    it('should throw error if instance of eventEmitter is not passed in', () => {
+      try {
+        uut = new OrbitDBAdapter({ ipfs: {}, encryption: {}, privateLog: {} })
+
+        assert.fail('Unexpected code path')
+      } catch (err) {
+        assert.include(
+          err.message,
+          'An instance of Event Emitter must be passed when instantiating the OrbitDB Adapter libary'
         )
       }
     })
