@@ -13,7 +13,9 @@ class AdaptersMock {
         }
       },
       getPeers: () => {},
-      connectToPeer: () => {}
+      connectToPeer: () => {},
+      disconnectFromPeer: () => {},
+      disconnectFromMultiaddr: () => {}
     }
 
     this.bchjs = {}
@@ -53,6 +55,10 @@ class AdaptersMock {
 
     this.log = {
       statusLog: () => {}
+    }
+
+    this.about = {
+      queryAbout: () => {}
     }
   }
 }

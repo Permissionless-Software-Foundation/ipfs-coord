@@ -111,6 +111,7 @@ describe('#relay-Use-Cases', () => {
 
       // Mock dependencies
       sandbox.stub(uut.adapters.ipfs, 'getPeers').resolves(mockData.swarmPeers)
+      sandbox.stub(uut, 'sortRelays').returns(thisNode.relayData)
 
       // uut.state.relays = crMockData.circuitRelays
       await uut.connectToCRs(thisNode)
@@ -127,6 +128,7 @@ describe('#relay-Use-Cases', () => {
 
       // Mock dependencies
       sandbox.stub(uut.adapters.ipfs, 'getPeers').resolves(mockData.swarmPeers)
+      sandbox.stub(uut, 'sortRelays').returns(thisNode.relayData)
 
       // uut.state.relays = crMockData.circuitRelays
       await uut.connectToCRs(thisNode)
@@ -141,6 +143,7 @@ describe('#relay-Use-Cases', () => {
       // Mock dependencies
       sandbox.stub(uut.adapters.ipfs, 'getPeers').resolves(mockData.swarmPeers2)
       sandbox.stub(uut.adapters.ipfs, 'connectToPeer').resolves(true)
+      sandbox.stub(uut, 'sortRelays').returns(thisNode.relayData)
 
       // uut.state.relays = crMockData.circuitRelays
       await uut.connectToCRs(thisNode)
@@ -171,7 +174,7 @@ describe('#relay-Use-Cases', () => {
           {
             data: {
               ipfsId,
-              ipfsMultiaddrs: ['addr1']
+              ipfsMultiaddrs: ['/ip4/addr1']
             }
           }
         ]
@@ -181,7 +184,7 @@ describe('#relay-Use-Cases', () => {
       sandbox.stub(uut.adapters.ipfs, 'connectToPeer').resolves(true)
       sandbox
         .stub(uut.adapters.ipfs, 'getPeers')
-        .resolves([{ peer: ipfsId, addr: 'addr1' }])
+        .resolves([{ peer: ipfsId, addr: '/ip4/addr1' }])
 
       const result = await uut.addRelay(ipfsId, thisNode)
 
@@ -203,7 +206,7 @@ describe('#relay-Use-Cases', () => {
       assert.property(thisNode.relayData[0], 'metrics')
 
       // Assert expected values.
-      assert.equal(thisNode.relayData[0].multiaddr, 'addr1')
+      assert.equal(thisNode.relayData[0].multiaddr, '/ip4/addr1')
       assert.equal(thisNode.relayData[0].connected, true)
       assert.equal(thisNode.relayData[0].ipfsId, 'testId')
       assert.equal(thisNode.relayData[0].isBootstrap, false)
@@ -227,6 +230,33 @@ describe('#relay-Use-Cases', () => {
 
       // Mock dependencies
       sandbox.stub(uut.adapters.ipfs, 'connectToPeer').resolves(false)
+
+      const result = await uut.addRelay(ipfsId, thisNode)
+
+      assert.equal(result, false)
+    })
+
+    it('should not connect to peer with p2p-circuit in multiaddr', async () => {
+      // Mock test data
+      const ipfsId = 'testId'
+      const thisNode = {
+        relayData: [],
+        peerData: [
+          {
+            data: {
+              ipfsId,
+              ipfsMultiaddrs: ['addr1/p2p-circuit/addr2']
+            }
+          }
+        ]
+      }
+
+      // Mock dependencies
+      sandbox.stub(uut.adapters.ipfs, 'connectToPeer').resolves(true)
+      sandbox.stub(uut.adapters.ipfs, 'disconnectFromPeer').resolves()
+      sandbox
+        .stub(uut.adapters.ipfs, 'getPeers')
+        .resolves([{ peer: ipfsId, addr: 'addr1/p2p-circuit/addr2' }])
 
       const result = await uut.addRelay(ipfsId, thisNode)
 
@@ -308,6 +338,7 @@ describe('#relay-Use-Cases', () => {
 
       // Mock dependencies
       sandbox.stub(uut.adapters.bch.bchjs.Util, 'sleep').resolves()
+      sandbox.stub(uut.adapters.about, 'queryAbout').resolves(true)
 
       await uut.measureRelays(thisNode)
       // console.log(
@@ -343,6 +374,51 @@ describe('#relay-Use-Cases', () => {
 
       // First element of '1' should have been shifted out and replaced by '2'
       assert.equal(thisNode.relayData[0].metrics.aboutLatency[0], 2)
+    })
+  })
+
+  describe('#sortRelays', () => {
+    it('should sort an array of relay data', () => {
+      const relayData = [
+        { metrics: { aboutLatency: [5, 6, 7] } },
+        { metrics: { aboutLatency: [7, 8, 9] } },
+        { metrics: { aboutLatency: [6, 7, 8] } }
+      ]
+
+      const result = uut.sortRelays(relayData)
+      // console.log('result: ', result)
+
+      assert.equal(result[0].latencyScore, 6)
+      assert.equal(result[2].latencyScore, 8)
+    })
+
+    it('should give highest score to Boostrap nodes', () => {
+      const relayData = [{ isBootstrap: true }]
+
+      const result = uut.sortRelays(relayData)
+      // console.log('result: ', result)
+
+      assert.equal(result[0].latencyScore, 10000)
+    })
+
+    it('should give highest score to empty metrics array', () => {
+      const relayData = [{ metrics: { aboutLatency: [] } }]
+
+      const result = uut.sortRelays(relayData)
+      // console.log('result: ', result)
+
+      assert.equal(result[0].latencyScore, 10000)
+    })
+
+    it('should catch and throw errors', () => {
+      try {
+        uut.sortRelays()
+
+        assert.fail('Unexpected code path')
+      } catch (err) {
+        // console.log(err)
+        assert.include(err.message, 'Cannot read property')
+      }
     })
   })
 })

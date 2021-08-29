@@ -127,10 +127,39 @@ describe('#ipfs-coord', () => {
       sandbox.stub(uut.useCases.relays, 'initializeRelays').resolves({})
       sandbox.stub(uut.useCases.pubsub, 'initializePubsub').resolves({})
       sandbox.stub(uut.controllers.timer, 'startTimers').resolves({})
+      sandbox.stub(uut, '_initializeConnections').resolves({})
 
       const result = await uut.start()
 
       assert.equal(result, true)
+    })
+  })
+
+  describe('#_initializeConnections', () => {
+    it('should kick-off initial connections', async () => {
+      // Mock dependencies
+      sandbox.stub(uut.useCases.relays, 'initializeRelays').resolves()
+      sandbox.stub(uut.useCases.thisNode, 'refreshPeerConnections').resolves()
+
+      const result = await uut._initializeConnections()
+
+      assert.equal(result, true)
+    })
+
+    it('should catch and throw errors', async () => {
+      try {
+        // Force and error
+        sandbox
+          .stub(uut.useCases.relays, 'initializeRelays')
+          .rejects(new Error('test error'))
+
+        await uut._initializeConnections()
+
+        assert.fail('Unexpected code path')
+      } catch (err) {
+        // console.log(err)
+        assert.include(err.message, 'test error')
+      }
     })
   })
 })

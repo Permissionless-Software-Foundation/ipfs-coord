@@ -5,13 +5,17 @@
 class UseCasesMock {
   constructor () {
     this.thisNode = {
-      refreshPeerConnections: () => {}
+      refreshPeerConnections: () => {},
+      enforceBlacklist: () => {}
     }
     this.relays = {
       connectToCRs: () => {},
-      addRelay: () => {}
+      addRelay: () => {},
+      measureRelays: () => {},
+      sortRelays: obj => obj
     }
     this.pubsub = {}
+    this.peer = {}
   }
 }
 

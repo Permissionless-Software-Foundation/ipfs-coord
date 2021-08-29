@@ -110,6 +110,8 @@ class IpfsCoord {
 
       await this.useCases.thisNode.refreshPeerConnections()
       console.log('Initial connections to subnet Peers complete.')
+
+      return true
     } catch (err) {
       console.error('Error in _initializeConnections()')
       throw err
