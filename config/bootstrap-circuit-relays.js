@@ -14,22 +14,31 @@ const BOOTSTRAP_BROWSER_CRs = [
     isBootstrap: true
   },
   {
-    name: 'go-ipfs-wss.fullstackcash.nl',
+    name: 'p2wdb-wss.fullstackcash.nl',
     multiaddr:
-      '/dns4/go-ipfs-wss.fullstackcash.nl/tcp/443/wss/ipfs/12D3KooWBYvNFKtQE3Hapi4NJeM9dLu66iTjyT6HBBmu8rzsiDRE',
+      '/dns4/p2wdb-wss.fullstackcash.nl/tcp/443/wss/p2p/QmVzXFKDbcB6eQ3UA7rR86zveWxVrZ2tMMBbsm6o6bgssm',
     connected: false,
-    ipfsId: '12D3KooWBYvNFKtQE3Hapi4NJeM9dLu66iTjyT6HBBmu8rzsiDRE',
+    ipfsId: 'QmVzXFKDbcB6eQ3UA7rR86zveWxVrZ2tMMBbsm6o6bgssm',
     isBootstrap: true
   }
+  // {
+  //   name: 'go-ipfs-wss.fullstackcash.nl',
+  //   multiaddr:
+  //     '/dns4/go-ipfs-wss.fullstackcash.nl/tcp/443/wss/ipfs/12D3KooWBYvNFKtQE3Hapi4NJeM9dLu66iTjyT6HBBmu8rzsiDRE',
+  //   connected: false,
+  //   ipfsId: '12D3KooWBYvNFKtQE3Hapi4NJeM9dLu66iTjyT6HBBmu8rzsiDRE',
+  //   isBootstrap: true
+  // }
 ]
 
 const BOOTSTRAP_NODE_CRs = [
   {
     name: 'ipfs.fullstack.cash',
     multiaddr:
-      '/ip4/116.203.193.74/tcp/4001/ipfs/QmNZktxkfScScnHCFSGKELH3YRqdxHQ3Le9rAoRLhZ6vgL',
+      '/ip4/165.227.82.120/tcp/4001/p2p/QmZ2YiP5jgeHAXJkzszCtojUw3P2DdrZK41uzWQVKHd9kQ',
+    // '/ip4/116.203.193.74/tcp/4001/ipfs/QmNZktxkfScScnHCFSGKELH3YRqdxHQ3Le9rAoRLhZ6vgL',
     connected: false,
-    ipfsId: 'QmNZktxkfScScnHCFSGKELH3YRqdxHQ3Le9rAoRLhZ6vgL',
+    ipfsId: 'QmZ2YiP5jgeHAXJkzszCtojUw3P2DdrZK41uzWQVKHd9kQ',
     isBootstrap: true
   },
   {
@@ -39,15 +48,15 @@ const BOOTSTRAP_NODE_CRs = [
     connected: false,
     ipfsId: 'QmSNwrec3GjpzLA8coJiSzdrGzKMELDBjsnsqwkNXDJWz6',
     isBootstrap: true
-  },
-  {
-    name: 'go-ipfs.fullstackcash.nl',
-    multiaddr:
-      '/ip4/162.55.59.102/tcp/4001/p2p/12D3KooWBYvNFKtQE3Hapi4NJeM9dLu66iTjyT6HBBmu8rzsiDRE',
-    connected: false,
-    ipfsId: '12D3KooWBYvNFKtQE3Hapi4NJeM9dLu66iTjyT6HBBmu8rzsiDRE',
-    isBootstrap: true
   }
+  // {
+  //   name: 'go-ipfs.fullstackcash.nl',
+  //   multiaddr:
+  //     '/ip4/162.55.59.102/tcp/4001/p2p/12D3KooWBYvNFKtQE3Hapi4NJeM9dLu66iTjyT6HBBmu8rzsiDRE',
+  //   connected: false,
+  //   ipfsId: '12D3KooWBYvNFKtQE3Hapi4NJeM9dLu66iTjyT6HBBmu8rzsiDRE',
+  //   isBootstrap: true
+  // }
 ]
 
 const bootstrapCircuitRelays = {
