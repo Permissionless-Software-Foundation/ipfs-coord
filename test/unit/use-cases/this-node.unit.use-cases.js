@@ -329,4 +329,63 @@ describe('#thisNode-Use-Cases', () => {
       }
     })
   })
+
+  describe('#enforceWhitelist', () => {
+    it('should disconnect from non-ipfs-coord peers', async () => {
+      await uut.createSelf({ type: 'node.js' })
+
+      // Mock dependencies
+      sandbox.stub(uut.adapters.ipfs, 'getPeers').resolves([{ peer: 'badId' }])
+      const spy1 = sandbox
+        .stub(uut.adapters.ipfs, 'disconnectFromPeer')
+        .resolves()
+
+      const result = await uut.enforceWhitelist()
+
+      // Assert that the method completed.
+      assert.equal(result, true)
+
+      // Assert that disconnectFromPeer() was called.
+      assert.equal(spy1.called, true)
+    })
+
+    it('should skip ipfs-coord peers', async () => {
+      await uut.createSelf({ type: 'node.js' })
+      uut.thisNode.peerData = [
+        {
+          from: 'goodId',
+          data: {
+            jsonLd: {
+              name: 'good-name'
+            }
+          }
+        }
+      ]
+
+      // Mock dependencies
+      sandbox.stub(uut.adapters.ipfs, 'getPeers').resolves([{ peer: 'goodId' }])
+      const spy1 = sandbox
+        .stub(uut.adapters.ipfs, 'disconnectFromPeer')
+        .resolves()
+
+      const result = await uut.enforceWhitelist()
+
+      // Assert that the method completed.
+      assert.equal(result, true)
+
+      // Assert that disconnectFromPeer() was not called.
+      assert.equal(spy1.called, false)
+    })
+
+    it('should catch and throw errors', async () => {
+      try {
+        await uut.enforceWhitelist()
+
+        assert.fail('Unexpected code path')
+      } catch (err) {
+        // console.log(err)
+        assert.include(err.message, 'Cannot read property')
+      }
+    })
+  })
 })

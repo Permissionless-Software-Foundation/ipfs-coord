@@ -192,8 +192,11 @@ describe('#timer-Controllers', () => {
 
     it('should return false on error', async () => {
       // Force an error
+      // sandbox
+      //   .stub(useCases.thisNode, 'enforceBlacklist')
+      //   .rejects(new Error('test error'))
       sandbox
-        .stub(useCases.thisNode, 'enforceBlacklist')
+        .stub(useCases.thisNode, 'enforceWhitelist')
         .rejects(new Error('test error'))
 
       const result = await uut.blacklist(thisNode, useCases)
