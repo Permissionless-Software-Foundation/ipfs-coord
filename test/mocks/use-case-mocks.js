@@ -6,7 +6,8 @@ class UseCasesMock {
   constructor () {
     this.thisNode = {
       refreshPeerConnections: () => {},
-      enforceBlacklist: () => {}
+      enforceBlacklist: () => {},
+      enforceWhitelist: () => {}
     }
     this.relays = {
       connectToCRs: () => {},
