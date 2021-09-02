@@ -123,7 +123,9 @@ describe('#thisNode-Use-Cases', () => {
 
       const announceObj = {
         from: 'peerId',
-        data: {}
+        data: {
+          orbitdb: 'orbitdbId'
+        }
       }
 
       await uut.createSelf({ type: 'node.js' })

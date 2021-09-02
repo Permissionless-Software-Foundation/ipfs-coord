@@ -13,7 +13,8 @@ const AboutAdapter = require('../../../lib/adapters/about-adapter')
 
 const eventEmitter = {
   emit: () => {},
-  on: () => {}
+  on: () => {},
+  removeListener: () => {}
 }
 
 describe('#About-adapter', () => {
