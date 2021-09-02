@@ -70,6 +70,6 @@
     "orbit-db": "^0.26.1"
   },
   "peerDependencies": {
-    "ipfs": "0.55.4"
+    "@chris.troutner/ipfs": "^2.0.0"
   }
 }
