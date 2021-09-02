@@ -3,7 +3,7 @@
   maximum amount of configuration options.
 */
 
-const IPFS = require('ipfs')
+const IPFS = require('@chris.troutner/ipfs')
 const BCHJS = require('@psf/bch-js')
 // const IpfsCoord = require('ipfs-coord')
 const IpfsCoord = require('../index')
@@ -24,10 +24,35 @@ const announceJson = {
   }
 }
 
+// Ipfs Options
+const ipfsOptions = {
+  repo: './.ipfsdata',
+  start: true,
+  config: {
+    relay: {
+      enabled: true, // enable circuit relay dialer and listener
+      hop: {
+        enabled: false // enable circuit relay HOP (make this node a relay)
+      }
+    },
+    pubsub: true, // enable pubsub
+    Swarm: {
+      ConnMgr: {
+        HighWater: 30,
+        LowWater: 10
+      }
+    },
+    preload: {
+      enabled: false
+    },
+    offline: true
+  }
+}
+
 async function start () {
   // Create an instance of bch-js and IPFS.
   const bchjs = new BCHJS()
-  const ipfs = await IPFS.create()
+  const ipfs = await IPFS.create(ipfsOptions)
 
   // Pass bch-js and IPFS to ipfs-coord when instantiating it.
   const ipfsCoord = new IpfsCoord({
