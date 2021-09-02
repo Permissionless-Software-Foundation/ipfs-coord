@@ -4,6 +4,7 @@
 */
 
 const IPFS = require('@chris.troutner/ipfs')
+// const IPFS = require('ipfs')
 // const IPFS = require('/home/trout/work/personal/js-ipfs/packages/ipfs')
 const BCHJS = require('@psf/bch-js')
 // const IpfsCoord = require('ipfs-coord')

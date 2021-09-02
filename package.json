@@ -46,7 +46,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "husky": "^4.3.6",
     "lodash.clonedeep": "^4.5.0",
-    "mocha": "^8.2.1",
+    "mocha": "^8.4.0",
     "nyc": "^15.1.0",
     "semantic-release": "^17.4.4",
     "sinon": "^9.2.2",
@@ -70,6 +70,6 @@
     "orbit-db": "^0.26.1"
   },
   "peerDependencies": {
-    "@chris.troutner/ipfs": "^2.0.0"
+    "@chris.troutner/ipfs": "^2.0.2"
   }
 }
