@@ -33,9 +33,9 @@ const BOOTSTRAP_BROWSER_CRs = [
 
 const BOOTSTRAP_NODE_CRs = [
   {
-    name: 'p2wdb-relay-nyc',
+    name: 'fullstack-p2wdb-cali',
     multiaddr:
-      '/ip4/165.227.82.120/tcp/5668/p2p/QmWi3WGdnV5VSpaeJQ2hwJztfarkRsHFXb7ZrjBYaGfJE6',
+      '/ip4/137.184.13.92/tcp/5668/p2p/Qma4iaNqgCAzA3HqNNEkKZzqWhCMnjt19TEHLu8TKhHhRK',
     connected: false,
     ipfsId: 'QmZ2YiP5jgeHAXJkzszCtojUw3P2DdrZK41uzWQVKHd9kQ',
     isBootstrap: true
