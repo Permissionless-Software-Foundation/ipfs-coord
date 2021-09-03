@@ -95,7 +95,12 @@ describe('#orbitdb-adapter', () => {
 
     it('should throw error if instance of Log is not passed in', () => {
       try {
-        uut = new OrbitDBAdapter({ ipfs: {}, encryption: {}, privateLog: {}, eventEmitter: {} })
+        uut = new OrbitDBAdapter({
+          ipfs: {},
+          encryption: {},
+          privateLog: {},
+          eventEmitter: {}
+        })
 
         assert.fail('Unexpected code path')
       } catch (err) {
@@ -148,21 +153,70 @@ describe('#orbitdb-adapter', () => {
     })
   })
 
+  describe('#captureMetrics', () => {
+    it('should return true when given metrics message', () => {
+      const decryptedStr = '{"jsonrpc": "2.0", "id": "metrics", "result": {}}'
+
+      const result = uut.captureMetrics(decryptedStr)
+      // console.log('result: ', result)
+
+      assert.equal(result, true)
+    })
+
+    it('should return false if given valid message that is not a metrics message', () => {
+      const decryptedStr = '{"jsonrpc": "2.0", "id": "xxxx", "result": {}}'
+
+      const result = uut.captureMetrics(decryptedStr)
+      // console.log('result: ', result)
+
+      assert.equal(result, false)
+    })
+
+    it('should return false if decrypted message can not be parsed', () => {
+      const decryptedStr = 'abcdefg'
+
+      const result = uut.captureMetrics(decryptedStr)
+      // console.log('result: ', result)
+
+      assert.equal(result, false)
+    })
+  })
+
   describe('#handleReplicationEvent', () => {
-    it('should decrypt an incoming message an pass it to the private log', async () => {
+    it('should decrypt an incoming message and pass it to the private log', async () => {
       // Mock dependencies
       uut.encryption = {
         decryptMsg: () => {}
       }
       sandbox.stub(uut.encryption, 'decryptMsg').resolves('decrypted message')
+      sandbox.stub(uut, 'captureMetrics').returns(false)
 
       // Mock the database.
       uut.db = mockData.mockEventLog
       // console.log('uut.db: ', uut.db)
 
-      await uut.handleReplicationEvent()
+      const result = await uut.handleReplicationEvent()
 
-      assert.isOk('everything', 'Not throwing an error is a pass')
+      // assert.isOk('everything', 'Not throwing an error is a pass')
+      assert.equal(result, true)
+    })
+
+    it('should decrypt an incoming message and NOT pass it to the private log if it is a metric message', async () => {
+      // Mock dependencies
+      uut.encryption = {
+        decryptMsg: () => {}
+      }
+      sandbox.stub(uut.encryption, 'decryptMsg').resolves('decrypted message')
+      sandbox.stub(uut, 'captureMetrics').returns(true)
+
+      // Mock the database.
+      uut.db = mockData.mockEventLog
+      // console.log('uut.db: ', uut.db)
+
+      const result = await uut.handleReplicationEvent()
+
+      // assert.isOk('everything', 'Not throwing an error is a pass')
+      assert.equal(result, true)
     })
 
     it('should catch and report errors', async () => {
@@ -171,9 +225,10 @@ describe('#orbitdb-adapter', () => {
       // Force an error
       sandbox.stub(uut.db, 'iterator').throws(new Error('test error'))
 
-      await uut.handleReplicationEvent()
+      const result = await uut.handleReplicationEvent()
 
-      assert.isOk('everything', 'Not throwing an error is a pass')
+      // assert.isOk('everything', 'Not throwing an error is a pass')
+      assert.equal(result, false)
     })
   })
 
