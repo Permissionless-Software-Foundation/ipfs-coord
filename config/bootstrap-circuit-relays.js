@@ -8,7 +8,7 @@ const BOOTSTRAP_BROWSER_CRs = [
   {
     name: 'ipfs-service-provider.fullstackcash.nl',
     multiaddr:
-      '/dns4/ipfs-service-provider.fullstackcash.nl/tcp/443/wss/ipfs/QmSNwrec3GjpzLA8coJiSzdrGzKMELDBjsnsqwkNXDJWz6',
+      '/dns4/ipfs-service-provider.fullstackcash.nl/tcp/443/wss/ipfs/QmW68UkiJ7eYFboAS9hio1Vnst4HzRg56Eqe7MFcajPFix',
     connected: false,
     ipfsId: 'QmSNwrec3GjpzLA8coJiSzdrGzKMELDBjsnsqwkNXDJWz6',
     isBootstrap: true
@@ -43,7 +43,7 @@ const BOOTSTRAP_NODE_CRs = [
   {
     name: 'ipfs-service-provider.fullstackcash.nl',
     multiaddr:
-      '/ip4/157.90.28.11/tcp/4001/p2p/QmSNwrec3GjpzLA8coJiSzdrGzKMELDBjsnsqwkNXDJWz6',
+      '/ip4/157.90.28.11/tcp/4001/p2p/QmW68UkiJ7eYFboAS9hio1Vnst4HzRg56Eqe7MFcajPFix',
     connected: false,
     ipfsId: 'QmSNwrec3GjpzLA8coJiSzdrGzKMELDBjsnsqwkNXDJWz6',
     isBootstrap: true
