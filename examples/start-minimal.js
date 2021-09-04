@@ -20,8 +20,8 @@ async function start () {
     ipfs,
     bchjs,
     debugLevel: 1,
-    //    type: 'node.js'
-    type: 'browser'
+    type: 'node.js'
+    //type: 'browser'
   })
 
   await ipfsCoord.start()
