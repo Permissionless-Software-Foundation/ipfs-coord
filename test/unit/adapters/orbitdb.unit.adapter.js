@@ -201,7 +201,7 @@ describe('#orbitdb-adapter', () => {
       assert.equal(result, true)
     })
 
-    it('should decrypt an incoming message and NOT pass it to the private log if it is a metric message', async () => {
+    it('should capture a metric message and pass it through to the private log', async () => {
       // Mock dependencies
       uut.encryption = {
         decryptMsg: () => {}
