@@ -174,7 +174,8 @@ describe('#relay-Use-Cases', () => {
           {
             data: {
               ipfsId,
-              ipfsMultiaddrs: ['/ip4/addr1']
+              ipfsMultiaddrs: ['/ip4/addr1'],
+              isCircuitRelay: true
             }
           }
         ]
@@ -307,10 +308,19 @@ describe('#relay-Use-Cases', () => {
       const thisNode = {
         relayData: [
           {
+            ipfsId: 'testId',
             isBootstrap: false,
             connected: false,
             metrics: {
               aboutLatency: []
+            }
+          }
+        ],
+        peerData: [
+          {
+            data: {
+              ipfsId: 'testId',
+              isCircuitRelay: true
             }
           }
         ]
@@ -327,10 +337,19 @@ describe('#relay-Use-Cases', () => {
       const thisNode = {
         relayData: [
           {
+            ipfsId: 'testId',
             isBootstrap: false,
             connected: true,
             metrics: {
               aboutLatency: []
+            }
+          }
+        ],
+        peerData: [
+          {
+            data: {
+              ipfsId: 'testId',
+              isCircuitRelay: true
             }
           }
         ]
@@ -354,10 +373,19 @@ describe('#relay-Use-Cases', () => {
       const thisNode = {
         relayData: [
           {
+            ipfsId: 'testId',
             isBootstrap: false,
             connected: true,
             metrics: {
               aboutLatency: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            }
+          }
+        ],
+        peerData: [
+          {
+            data: {
+              ipfsId: 'testId',
+              isCircuitRelay: true
             }
           }
         ]
