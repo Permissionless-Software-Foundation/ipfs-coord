@@ -12,6 +12,7 @@ const ThisNodeUseCases = require('../../../lib/use-cases/this-node-use-cases')
 const AdapterMock = require('../../mocks/adapter-mock')
 const adapters = new AdapterMock()
 const mockData = require('../../mocks/peers-mock')
+const relayMockData = require('../../mocks/circuit-relay-mocks')
 
 describe('#relay-Use-Cases', () => {
   let uut
@@ -441,6 +442,33 @@ describe('#relay-Use-Cases', () => {
     it('should catch and throw errors', () => {
       try {
         uut.sortRelays()
+
+        assert.fail('Unexpected code path')
+      } catch (err) {
+        // console.log(err)
+        assert.include(err.message, 'Cannot read property')
+      }
+    })
+  })
+
+  describe('#removeDuplicates', () => {
+    it('should remove duplicate entries', () => {
+      // Mock test data
+      const thisNode = {
+        relayData: relayMockData.duplicateRelays
+      }
+
+      const result = uut.removeDuplicates(thisNode)
+
+      // console.log('thisNode.relayData: ', thisNode.relayData)
+
+      assert.equal(result, true)
+      assert.equal(thisNode.relayData.length, 3)
+    })
+
+    it('should catch and throw errors', () => {
+      try {
+        uut.removeDuplicates()
 
         assert.fail('Unexpected code path')
       } catch (err) {
