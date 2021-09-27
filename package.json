@@ -66,6 +66,7 @@
     }
   },
   "dependencies": {
+    "axios": "^0.21.4",
     "bch-encrypt-lib": "^2.0.0",
     "orbit-db": "^0.26.1"
   },
