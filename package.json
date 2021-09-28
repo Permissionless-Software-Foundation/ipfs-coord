@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "npm run lint && TEST=unit nyc mocha --exit --recursive test/unit/",
+    "test": "npm run lint && TEST=unit nyc mocha --timeout=15000 --exit --recursive test/unit/",
     "test:integration": "mocha --timeout 25000 test/integration/",
     "lint": "standard --env mocha --fix",
     "docs": "./node_modules/.bin/apidoc -i src/ -o docs",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coverage:report": "nyc --reporter=html mocha test/unit/ --exit --recursive",
-    "test:temp": "npm run lint && TEST=unit nyc mocha -g '#generatePrivateKey' test/unit/"
+    "test:temp": "npm run lint && TEST=unit nyc mocha -g --timeout=15000 '#generatePrivateKey' test/unit/"
   },
   "keywords": [
     "bitcoin",

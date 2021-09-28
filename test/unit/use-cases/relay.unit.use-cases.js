@@ -69,17 +69,19 @@ describe('#relay-Use-Cases', () => {
 
   describe('#initializeRelays', () => {
     it('should initialize the node.js circuit relays', async () => {
-      await uut.initializeRelays(thisNode)
+      const result = await uut.initializeRelays(thisNode)
 
-      assert.isOk(true, 'Not throwing an error is a pass')
+      // assert.isOk(true, 'Not throwing an error is a pass')
+      assert.equal(result, true)
     })
 
     it('should initialize the browser circuit relays', async () => {
       thisNode.type = 'browser'
 
-      await uut.initializeRelays(thisNode)
+      const result = await uut.initializeRelays(thisNode)
 
-      assert.isOk(true, 'Not throwing an error is a pass')
+      // assert.isOk(true, 'Not throwing an error is a pass')
+      assert.equal(result, true)
     })
 
     it('should catch and throw an error', async () => {
@@ -96,6 +98,38 @@ describe('#relay-Use-Cases', () => {
         // console.log(err)
         assert.include(err.message, 'test error')
       }
+    })
+  })
+
+  describe('#getCRGist', () => {
+    it('should load list from GitHub and connect to node.js circuit relays', async () => {
+      // Mock dependencies
+      const data = {
+        browser: [],
+        node: []
+      }
+      sandbox.stub(uut.adapters.gist, 'getCRList').resolves(data)
+      sandbox.stub(uut, 'removeDuplicates').resolves()
+
+      const result = await uut.getCRGist(thisNode)
+
+      assert.equal(result, true)
+    })
+
+    it('should load list from GitHub and connect to browser circuit relays', async () => {
+      thisNode.type = 'browser'
+
+      // Mock dependencies
+      const data = {
+        browser: [],
+        node: []
+      }
+      sandbox.stub(uut.adapters.gist, 'getCRList').resolves(data)
+      sandbox.stub(uut, 'removeDuplicates').resolves()
+
+      const result = await uut.getCRGist(thisNode)
+
+      assert.equal(result, true)
     })
   })
 

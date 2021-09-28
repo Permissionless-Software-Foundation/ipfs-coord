@@ -60,6 +60,10 @@ class AdaptersMock {
     this.about = {
       queryAbout: () => {}
     }
+
+    this.gist = {
+      getCRList: async () => {}
+    }
   }
 }
 
