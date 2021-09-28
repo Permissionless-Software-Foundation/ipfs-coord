@@ -108,6 +108,10 @@ class IpfsCoord {
       await this.useCases.relays.initializeRelays(this.thisNode)
       console.log('Initial connections to Circuit Relays complete.')
 
+      // Load list of Circuit Relays from GitHub Gist.
+      await this.useCases.relays.getCRGist(this.thisNode)
+      console.log('Finished connecting to Circuit Relays in GitHub Gist.')
+
       await this.useCases.thisNode.refreshPeerConnections()
       console.log('Initial connections to subnet Peers complete.')
 
