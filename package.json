@@ -34,23 +34,23 @@
   },
   "repository": "Permissionless-Software-Foundation/ipfs-coord",
   "devDependencies": {
-    "@psf/bch-js": "^4.20.10",
-    "apidoc": "^0.25.0",
-    "chai": "^4.2.0",
-    "coveralls": "^3.1.0",
+    "@psf/bch-js": "4.20.10",
+    "apidoc": "0.25.0",
+    "chai": "4.2.0",
+    "coveralls": "3.1.0",
     "eslint": "7.17.0",
-    "eslint-config-prettier": "^7.1.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "husky": "^4.3.6",
-    "lodash.clonedeep": "^4.5.0",
-    "mocha": "^8.4.0",
-    "nyc": "^15.1.0",
-    "semantic-release": "^17.4.4",
-    "sinon": "^9.2.2",
-    "standard": "^16.0.3"
+    "eslint-config-prettier": "7.1.0",
+    "eslint-config-standard": "16.0.2",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "3.3.1",
+    "eslint-plugin-standard": "4.0.0",
+    "husky": "4.3.6",
+    "lodash.clonedeep": "4.5.0",
+    "mocha": "8.4.0",
+    "nyc": "15.1.0",
+    "semantic-release": "17.4.4",
+    "sinon": "9.2.2",
+    "standard": "16.0.3"
   },
   "release": {
     "publish": [
@@ -66,11 +66,11 @@
     }
   },
   "dependencies": {
-    "axios": "^0.21.4",
-    "bch-encrypt-lib": "^2.0.0",
-    "orbit-db": "^0.26.1"
+    "axios": "0.21.4",
+    "bch-encrypt-lib": "2.0.0",
+    "orbit-db": "0.26.1"
   },
   "peerDependencies": {
-    "@chris.troutner/ipfs": "^2.0.2"
+    "@chris.troutner/ipfs": "2.0.2"
   }
 }
