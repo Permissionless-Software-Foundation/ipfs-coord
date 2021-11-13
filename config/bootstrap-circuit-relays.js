@@ -6,11 +6,11 @@
 
 const BOOTSTRAP_BROWSER_CRs = [
   {
-    name: 'psf-cr-EU',
+    name: 'psf-bch-wallet-service-eu',
     multiaddr:
-      '/dns4/ipfs-service-provider.fullstackcash.nl/tcp/443/wss/ipfs/QmU6nhzDNipg4kpKjfvpZqdXvfXwoNWSL9jvf29fXj5WKn',
+      '/dns4/eu-bch-wallet-service-wss.fullstack.cash/tcp/443/wss/p2p/QmXbyd4tWzwhGyyZJ9QJctfJJLq7oAJRs39aqpRXUAbu5j',
     connected: false,
-    ipfsId: 'QmU6nhzDNipg4kpKjfvpZqdXvfXwoNWSL9jvf29fXj5WKn',
+    ipfsId: 'QmXbyd4tWzwhGyyZJ9QJctfJJLq7oAJRs39aqpRXUAbu5j',
     isBootstrap: true
   },
   {
@@ -25,11 +25,11 @@ const BOOTSTRAP_BROWSER_CRs = [
 
 const BOOTSTRAP_NODE_CRs = [
   {
-    name: 'psf-cr-EU',
+    name: 'psf-bch-wallet-service-eu',
     multiaddr:
-      '/ip4/162.55.59.102/tcp/5268/p2p/QmU6nhzDNipg4kpKjfvpZqdXvfXwoNWSL9jvf29fXj5WKn',
+      '/ip4/88.99.188.196/tcp/5268/p2p/QmXbyd4tWzwhGyyZJ9QJctfJJLq7oAJRs39aqpRXUAbu5j',
     connected: false,
-    ipfsId: 'QmU6nhzDNipg4kpKjfvpZqdXvfXwoNWSL9jvf29fXj5WKn',
+    ipfsId: 'QmXbyd4tWzwhGyyZJ9QJctfJJLq7oAJRs39aqpRXUAbu5j',
     isBootstrap: true
   },
   {
