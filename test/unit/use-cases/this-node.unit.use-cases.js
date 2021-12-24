@@ -143,6 +143,9 @@ describe('#thisNode-Use-Cases', () => {
       assert.equal(uut.thisNode.peerData.length, 1)
     })
 
+    // TODO: Create new test case:
+    // it('should not update an existing peer if broadcast message is older the current one')'
+
     it('should catch and report an error', async () => {
       try {
         const announceObj = {
