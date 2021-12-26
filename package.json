@@ -34,7 +34,7 @@
   },
   "repository": "Permissionless-Software-Foundation/ipfs-coord",
   "devDependencies": {
-    "@psf/bch-js": "4.20.10",
+    "@psf/bch-js": "4.20.28",
     "apidoc": "0.25.0",
     "chai": "4.2.0",
     "coveralls": "3.1.0",
@@ -68,9 +68,9 @@
   "dependencies": {
     "axios": "0.21.4",
     "bch-encrypt-lib": "2.0.0",
-    "orbit-db": "0.26.1"
+    "orbit-db": "0.28.0"
   },
   "peerDependencies": {
-    "@chris.troutner/ipfs": "2.0.2"
+    "ipfs": "0.61.0"
   }
 }
