@@ -68,5 +68,18 @@ async function start () {
 
   await ipfsCoord.start()
   console.log('IPFS and the coordination library is ready.')
+
+  setInterval(async function() {
+    try {
+      const result = await ipfs.bitswap.stat()
+      console.log('bitswap stats: ', result)
+
+      for await (const stats of ipfs.stats.bw()) {
+        console.log(stats)
+      }
+    } catch(err) {
+      console.error('Error trying to monitor stats: ', err)
+    }
+  }, 2000)
 }
 start()
