@@ -72,6 +72,6 @@
   },
   "peerDependencies": {
     "@chris.troutner/ipfs": "2.0.2",
-    "ipfs": "^0.61.0"
+    "ipfs": "0.60.0"
   }
 }
