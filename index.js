@@ -23,12 +23,21 @@ class IpfsCoord {
         'An instance of @psf/bch-js must be passed when instantiating the ipfs-coord library.'
       )
     }
-    if (!localConfig.type) {
+    this.type = localConfig.type
+    if (!this.type) {
       throw new Error(
         'The type of IPFS node (browser or node.js) must be specified.'
       )
     }
-    this.type = localConfig.type
+
+    // 'embedded' node type used as default, will use embedded js-ipfs.
+    // Alternative is 'external' which will use ipfs-http-client to control an
+    // external IPFS node.
+    this.nodeType = localConfig.nodeType
+    if (!this.nodeType) {
+      console.log('No node type specified. Assuming embedded js-ipfs.')
+      this.nodeType = 'embedded'
+    }
 
     // Retrieve and/or set the debug level.
     // 0 = no debug information.

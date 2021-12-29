@@ -71,6 +71,7 @@
     "orbit-db": "0.28.0"
   },
   "peerDependencies": {
-    "ipfs": "0.60.0"
+    "ipfs": "0.60.0",
+    "ipfs-http-client": "55.0.0"
   }
 }
