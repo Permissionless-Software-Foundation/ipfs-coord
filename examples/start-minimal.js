@@ -10,10 +10,14 @@ const BCHJS = require('@psf/bch-js')
 // const IpfsCoord = require('ipfs-coord')
 const IpfsCoord = require('../index')
 
+const ipfsOptions = {
+  repo: './.ipfsdata'
+}
+
 async function start () {
   // Create an instance of bch-js and IPFS.
   const bchjs = new BCHJS()
-  const ipfs = await IPFS.create()
+  const ipfs = await IPFS.create(ipfsOptions)
 
   // Pass bch-js and IPFS to ipfs-coord when instantiating it.
   const ipfsCoord = new IpfsCoord({
