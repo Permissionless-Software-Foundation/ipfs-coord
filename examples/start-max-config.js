@@ -3,7 +3,8 @@
   maximum amount of configuration options.
 */
 
-const IPFS = require('@chris.troutner/ipfs')
+// const IPFS = require('@chris.troutner/ipfs')
+const IPFS = require('ipfs')
 const BCHJS = require('@psf/bch-js')
 // const IpfsCoord = require('ipfs-coord')
 const IpfsCoord = require('../index')
