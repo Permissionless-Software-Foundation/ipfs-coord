@@ -1,17 +1,24 @@
 /*
   This example shows how to start an IPFS node, using ipfs-coord, with the
-  minimum amount of configuration options.
+  IPFS node running as an external node that can be controlled via the
+  ipfs-http-client library.
+
+  Designed to use IPFS running in this Docker container:
+  https://github.com/christroutner/docker-ipfs
 */
 
 // const IPFS = require('@chris.troutner/ipfs')
-const IPFS = require('ipfs')
+const IPFS = require('ipfs-http-client')
 // const IPFS = require('/home/trout/work/personal/js-ipfs/packages/ipfs')
 const BCHJS = require('@psf/bch-js')
 // const IpfsCoord = require('ipfs-coord')
 const IpfsCoord = require('../index')
 
+// Configuration for external IPFS node.
 const ipfsOptions = {
-  repo: './.ipfsdata'
+  protocol: 'http',
+  host: 'localhost',
+  port: 5001
 }
 
 async function start () {
@@ -24,8 +31,9 @@ async function start () {
     ipfs,
     bchjs,
     debugLevel: 1,
-    type: 'node.js'
+    type: 'node.js',
     // type: 'browser'
+    nodeType: 'external'
   })
 
   await ipfsCoord.start()

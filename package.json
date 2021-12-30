@@ -68,9 +68,10 @@
   "dependencies": {
     "axios": "0.21.4",
     "bch-encrypt-lib": "2.0.0",
-    "orbit-db": "0.26.1"
+    "orbit-db": "0.28.0"
   },
   "peerDependencies": {
-    "@chris.troutner/ipfs": "2.0.2"
+    "ipfs": "0.60.0",
+    "ipfs-http-client": "55.0.0"
   }
 }
