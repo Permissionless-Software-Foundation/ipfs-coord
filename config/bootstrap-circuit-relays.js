@@ -16,9 +16,9 @@ const BOOTSTRAP_BROWSER_CRs = [
   {
     name: 'psf-cr-USA-cali',
     multiaddr:
-      '/dns4/ipfs-cr.fullstackcash.nl/tcp/443/wss/p2p/QmXvT9Tn5VbFU4kGobEt8XS2tsyfjohAzYNa4Wmv8P6pzV',
+      '/dns4/ipfs-cr.fullstackcash.nl/tcp/443/wss/p2p/12D3KooWGEk7JZSvgJzpGbGJ7pUD9bkcqtiTyYRB1Vytkw3c546y',
     connected: false,
-    ipfsId: 'QmXvT9Tn5VbFU4kGobEt8XS2tsyfjohAzYNa4Wmv8P6pzV',
+    ipfsId: '12D3KooWGEk7JZSvgJzpGbGJ7pUD9bkcqtiTyYRB1Vytkw3c546y',
     isBootstrap: true
   }
 ]
@@ -35,9 +35,9 @@ const BOOTSTRAP_NODE_CRs = [
   {
     name: 'psf-cr-USA-cali',
     multiaddr:
-      '/ip4/137.184.13.92/tcp/5268/p2p/QmXvT9Tn5VbFU4kGobEt8XS2tsyfjohAzYNa4Wmv8P6pzV',
+      '/ip4/137.184.13.92/tcp/4001/p2p/12D3KooWGEk7JZSvgJzpGbGJ7pUD9bkcqtiTyYRB1Vytkw3c546y',
     connected: false,
-    ipfsId: 'QmXvT9Tn5VbFU4kGobEt8XS2tsyfjohAzYNa4Wmv8P6pzV',
+    ipfsId: '12D3KooWGEk7JZSvgJzpGbGJ7pUD9bkcqtiTyYRB1Vytkw3c546y',
     isBootstrap: true
   }
 ]
