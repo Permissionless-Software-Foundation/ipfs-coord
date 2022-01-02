@@ -29,15 +29,15 @@ const BOOTSTRAP_NODE_CRs = [
     multiaddr:
       '/ip4/88.99.188.196/tcp/4001/p2p/12D3KooWT2tDg2pHwKz84Htzh2KsfSUZbZXmoAUFnaSwUVrDsag3',
     connected: false,
-    ipfsId: 'QmXbyd4tWzwhGyyZJ9QJctfJJLq7oAJRs39aqpRXUAbu5j',
+    ipfsId: '12D3KooWT2tDg2pHwKz84Htzh2KsfSUZbZXmoAUFnaSwUVrDsag3',
     isBootstrap: true
   },
   {
     name: 'psf-cr-USA-cali',
     multiaddr:
-      '/ip4/137.184.13.92/tcp/4001/p2p/12D3KooWGEk7JZSvgJzpGbGJ7pUD9bkcqtiTyYRB1Vytkw3c546y',
+      '/ip4/137.184.13.92/tcp/4001/p2p/12D3KooWPcLSmGFCWDoFA2Xusfoe1mtqECmG9iKwckS7LDuGudZY',
     connected: false,
-    ipfsId: '12D3KooWGEk7JZSvgJzpGbGJ7pUD9bkcqtiTyYRB1Vytkw3c546y',
+    ipfsId: '12D3KooWPcLSmGFCWDoFA2Xusfoe1mtqECmG9iKwckS7LDuGudZY',
     isBootstrap: true
   }
 ]
