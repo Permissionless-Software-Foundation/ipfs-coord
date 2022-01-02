@@ -27,7 +27,7 @@ const BOOTSTRAP_NODE_CRs = [
   {
     name: 'psf-bch-wallet-service-eu',
     multiaddr:
-      '/ip4/88.99.188.196/tcp/5268/p2p/QmXbyd4tWzwhGyyZJ9QJctfJJLq7oAJRs39aqpRXUAbu5j',
+      '/ip4/88.99.188.196/tcp/4001/p2p/12D3KooWT2tDg2pHwKz84Htzh2KsfSUZbZXmoAUFnaSwUVrDsag3',
     connected: false,
     ipfsId: 'QmXbyd4tWzwhGyyZJ9QJctfJJLq7oAJRs39aqpRXUAbu5j',
     isBootstrap: true
