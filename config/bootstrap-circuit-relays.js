@@ -8,17 +8,17 @@ const BOOTSTRAP_BROWSER_CRs = [
   {
     name: 'psf-bch-wallet-service-eu',
     multiaddr:
-      '/dns4/eu-bch-wallet-service-wss.fullstack.cash/tcp/443/wss/p2p/QmXbyd4tWzwhGyyZJ9QJctfJJLq7oAJRs39aqpRXUAbu5j',
+      '/dns4/eu-bch-wallet-service-wss.fullstack.cash/tcp/443/wss/p2p/12D3KooWT2tDg2pHwKz84Htzh2KsfSUZbZXmoAUFnaSwUVrDsag3',
     connected: false,
-    ipfsId: 'QmXbyd4tWzwhGyyZJ9QJctfJJLq7oAJRs39aqpRXUAbu5j',
+    ipfsId: '12D3KooWT2tDg2pHwKz84Htzh2KsfSUZbZXmoAUFnaSwUVrDsag3',
     isBootstrap: true
   },
   {
     name: 'psf-cr-USA-cali',
     multiaddr:
-      '/dns4/ipfs-cr.fullstackcash.nl/tcp/443/wss/p2p/12D3KooWGEk7JZSvgJzpGbGJ7pUD9bkcqtiTyYRB1Vytkw3c546y',
+      '/dns4/ipfs-cr.fullstackcash.nl/tcp/443/wss/p2p/12D3KooWPcLSmGFCWDoFA2Xusfoe1mtqECmG9iKwckS7LDuGudZY',
     connected: false,
-    ipfsId: '12D3KooWGEk7JZSvgJzpGbGJ7pUD9bkcqtiTyYRB1Vytkw3c546y',
+    ipfsId: '12D3KooWPcLSmGFCWDoFA2Xusfoe1mtqECmG9iKwckS7LDuGudZY',
     isBootstrap: true
   }
 ]
