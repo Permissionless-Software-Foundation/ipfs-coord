@@ -317,7 +317,13 @@ describe('#orbitdb-adapter', () => {
 
       const thisNode = {
         orbitList: ['abc'],
-        orbitData: [{ ipfsId: 'abc', orbitdbId: '123' }]
+        orbitData: [
+          {
+            ipfsId: 'abc',
+            orbitdbId: '123',
+            db: { close: () => {}, drop: () => {} }
+          }
+        ]
       }
 
       const peerId = 'abc'
