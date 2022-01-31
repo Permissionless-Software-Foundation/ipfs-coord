@@ -13,12 +13,14 @@ const IPFS = require('ipfs-http-client')
 const BCHJS = require('@psf/bch-js')
 // const IpfsCoord = require('ipfs-coord')
 const IpfsCoord = require('../index')
+const http = require('http')
 
 // Configuration for external IPFS node.
 const ipfsOptions = {
   protocol: 'http',
   host: 'localhost',
-  port: 5001
+  port: 5001,
+  agent: http.Agent({ keepAlive: true, maxSockets: 2000 })
 }
 
 async function start () {
@@ -30,10 +32,10 @@ async function start () {
   const ipfsCoord = new IpfsCoord({
     ipfs,
     bchjs,
-    debugLevel: 1,
     type: 'node.js',
     // type: 'browser'
-    nodeType: 'external'
+    nodeType: 'external',
+    debugLevel: 2
   })
 
   await ipfsCoord.start()
