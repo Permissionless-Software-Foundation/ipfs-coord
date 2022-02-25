@@ -20,7 +20,7 @@ const ipfsOptions = {
   protocol: 'http',
   host: 'localhost',
   port: 5001,
-  agent: http.Agent({ keepAlive: true, maxSockets: 200 })
+  agent: http.Agent({ keepAlive: true, maxSockets: 100 })
 }
 
 async function start () {
