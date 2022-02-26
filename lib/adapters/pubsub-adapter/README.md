@@ -2,7 +2,7 @@
 
 The [index.js](./index.js) file contains the primary PubSub adapter, which controls the pubsub channel connections between peers. [messaging.js](./messaging.js) controls the message handling for communicating over pubsub channels.
 
-Because IPFS nodes are constantly changing their network connections, it's frequently observed that pubsub messages between peers get 'lost'. Version 6 and older used [orbit-db](https://www.npmjs.com/package/orbit-db) to prevent these lost messages. However, it turned out to not be a very scalable solution. Orbit-db is way too CPU heavy to work as a speedy form of inter-node communcation.
+Because IPFS nodes are constantly changing their network connections, it's frequently observed that pubsub messages between peers get 'lost'. Version 6 and older used [orbit-db](https://www.npmjs.com/package/orbit-db) to prevent these lost messages. However, it turned out to not be a very scalable solution. Orbit-db is way too CPU heavy to work as a speedy form of inter-node communication.
 
 Version 7 introduced the [messaging.js](./messaging.js) library. The primary problem this library solves is the 'lost message' issue. The IPFS pubsub channels handle the bulk of the low-level messaging.
 

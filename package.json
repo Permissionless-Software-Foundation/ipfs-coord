@@ -68,7 +68,8 @@
   "dependencies": {
     "axios": "0.21.4",
     "bch-encrypt-lib": "2.0.0",
-    "orbit-db": "0.28.0"
+    "orbit-db": "0.28.0",
+    "uuid": "8.3.2"
   },
   "peerDependencies": {
     "ipfs": "0.60.0",
