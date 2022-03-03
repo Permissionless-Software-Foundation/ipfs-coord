@@ -18,19 +18,21 @@ describe('#pubsub-adapter', () => {
   let uut
   let ipfs
 
+  const log = {
+    statusLog: () => {
+    }
+  }
+
   beforeEach(() => {
     // Restore the sandbox before each test.
     sandbox = sinon.createSandbox()
 
     ipfs = cloneDeep(ipfsLib)
-    const log = {
-      statusLog: () => {}
-    }
 
     const ipfsAdapter = new IPFSAdapter({ ipfs, log })
 
     // Instantiate the library under test. Must instantiate dependencies first.
-    uut = new Pubsub({ ipfs: ipfsAdapter, log })
+    uut = new Pubsub({ ipfs: ipfsAdapter, log, encryption: {}, privateLog: {}, eventEmitter: {} })
   })
 
   afterEach(() => sandbox.restore())
@@ -61,12 +63,39 @@ describe('#pubsub-adapter', () => {
         )
       }
     })
+
+    it('should throw an error if encryption library is not included', () => {
+      try {
+        uut = new Pubsub({ ipfs, log })
+
+        assert.fail('Unexpected result')
+      } catch (err) {
+        assert.include(
+          err.message,
+          'An instance of the encryption Adapter must be passed when instantiating the Pubsub Adapter library.'
+        )
+      }
+    })
+
+    it('should throw an error if privateLog is not included', () => {
+      try {
+        uut = new Pubsub({ ipfs, log, encryption: {} })
+
+        assert.fail('Unexpected result')
+      } catch (err) {
+        assert.include(
+          err.message,
+          'A private log handler must be passed when instantiating the Pubsub Adapter library.'
+        )
+      }
+    })
   })
 
   describe('#subscribeToPubsubChannel', () => {
     it('should subscribe to a pubsub channel', async () => {
       const chanName = 'test'
-      const handler = () => {}
+      const handler = () => {
+      }
       const thisNodeId = 'testId'
 
       await uut.subscribeToPubsubChannel(chanName, handler, thisNodeId)
@@ -86,14 +115,15 @@ describe('#pubsub-adapter', () => {
         assert.fail('Unexpected code path')
       } catch (err) {
         // console.log('err: ', err)
-        assert.include(err.message, 'test error')
+        assert.include(err.message, 'Cannot read')
       }
     })
   })
 
   describe('#parsePubsubMessage', () => {
     it('should parse a pubsub message', async () => {
-      const handler = () => {}
+      const handler = () => {
+      }
 
       await uut.parsePubsubMessage(mockData.mockMsg, handler)
 
@@ -101,7 +131,8 @@ describe('#pubsub-adapter', () => {
     })
 
     it('should quietly exit if message is from thisNode', async () => {
-      const handler = () => {}
+      const handler = () => {
+      }
 
       mockData.mockMsg.from = 'thisNodeId'
 
@@ -116,33 +147,6 @@ describe('#pubsub-adapter', () => {
       await uut.parsePubsubMessage()
 
       assert.isOk(true, 'Not throwing an error is a pass')
-    })
-  })
-
-  describe('#publishToPubsubChannel', () => {
-    it('should publish a message', async () => {
-      const chanName = 'chanName'
-      const msgStr = 'test message'
-
-      await uut.publishToPubsubChannel(chanName, msgStr)
-
-      assert.equal(true, true, 'Not throwing an error is a pass')
-    })
-
-    it('should catch and throw errors', async () => {
-      try {
-        // Force an error
-        sandbox
-          .stub(uut.ipfs.ipfs.pubsub, 'publish')
-          .rejects(new Error('test error'))
-
-        await uut.publishToPubsubChannel()
-
-        assert.fail('Unexpected code path')
-      } catch (err) {
-        // console.log('err: ', err)
-        assert.include(err.message, 'The first argument')
-      }
     })
   })
 })
