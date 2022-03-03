@@ -61,7 +61,7 @@ describe('#timer-Controllers', () => {
 
     it('should throw an error if status log handler is not included', () => {
       try {
-        uut = new TimerControllers({ adapters})
+        uut = new TimerControllers({ adapters })
       } catch (err) {
         assert.include(
           err.message,

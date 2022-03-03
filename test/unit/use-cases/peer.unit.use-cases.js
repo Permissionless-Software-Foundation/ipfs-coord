@@ -26,7 +26,8 @@ describe('#Peer-Use-Cases', () => {
     const thisNodeUseCases = new ThisNodeUseCases({
       adapters,
       controllers: {},
-      statusLog: () => {}
+      statusLog: () => {
+      }
     })
     thisNode = await thisNodeUseCases.createSelf({ type: 'node.js' })
     //
@@ -83,25 +84,15 @@ describe('#Peer-Use-Cases', () => {
       }
     })
 
-    it('should throw an error if OrbitDB for peer can not be found', async () => {
-      try {
-        thisNode.peerData.push({ from: 'fakeId' })
-
-        const result = await uut.sendPrivateMessage(
-          'fakeId',
-          'messageStr',
-          thisNode
-        )
-        console.log('result: ', result)
-      } catch (err) {
-        // console.log('err: ', err)
-        assert.include(err.message, 'OrbitDB for peer')
-      }
-    })
-
     it('should encrypt a message and add it to the peers OrbitDB', async () => {
       thisNode.peerData.push({ from: 'fakeId' })
-      thisNode.orbitData.push({ ipfsId: 'fakeId', db: { add: () => {} } })
+      // thisNode.orbitData.push({
+      //   ipfsId: 'fakeId',
+      //   db: {
+      //     add: () => {
+      //     }
+      //   }
+      // })
 
       // Mock dependencies
       // sandbox.stub(uut.adapters.encryption, 'encryptMsg')
@@ -139,8 +130,7 @@ describe('#Peer-Use-Cases', () => {
       thisNode.peerList = [peerId]
       thisNode.relayData = [
         {
-          multiaddr:
-            '/ip4/139.162.76.54/tcp/5269/ws/p2p/QmaKzQTAtoJWYMiG5ATx41uWsMajr1kSxRdtg919s8fK77',
+          multiaddr: '/ip4/139.162.76.54/tcp/5269/ws/p2p/QmaKzQTAtoJWYMiG5ATx41uWsMajr1kSxRdtg919s8fK77',
           connected: true,
           updatedAt: '2021-09-20T15:59:12.961Z',
           ipfsId: 'QmaKzQTAtoJWYMiG5ATx41uWsMajr1kSxRdtg919s8fK77',
@@ -171,8 +161,7 @@ describe('#Peer-Use-Cases', () => {
       thisNode.peerList = [peerId]
       thisNode.relayData = [
         {
-          multiaddr:
-            '/ip4/139.162.76.54/tcp/5269/ws/p2p/QmaKzQTAtoJWYMiG5ATx41uWsMajr1kSxRdtg919s8fK77',
+          multiaddr: '/ip4/139.162.76.54/tcp/5269/ws/p2p/QmaKzQTAtoJWYMiG5ATx41uWsMajr1kSxRdtg919s8fK77',
           connected: true,
           updatedAt: '2021-09-20T15:59:12.961Z',
           ipfsId: 'QmaKzQTAtoJWYMiG5ATx41uWsMajr1kSxRdtg919s8fK77',
@@ -204,7 +193,7 @@ describe('#Peer-Use-Cases', () => {
         assert.fail('Unexpected code path')
       } catch (err) {
         // console.log(err)
-        assert.include(err.message, 'Cannot read property')
+        assert.include(err.message, 'Cannot read')
       }
     })
   })
