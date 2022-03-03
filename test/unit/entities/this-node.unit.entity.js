@@ -17,8 +17,8 @@ describe('#thisNode-Entity', () => {
     // Restore the sandbox before each test.
     sandbox = sinon.createSandbox()
 
-    // const bchjs = new BCHJS()
-    // uut = new IpfsCoord({ bchjs, ipfs, type: 'node.js' })
+  // const bchjs = new BCHJS()
+  // uut = new IpfsCoord({ bchjs, ipfs, type: 'node.js' })
   })
 
   afterEach(() => sandbox.restore())
@@ -134,28 +134,6 @@ describe('#thisNode-Entity', () => {
       }
     })
 
-    it('should throw an error if OrbitDB instance is not included', () => {
-      try {
-        const configObj = {
-          ipfsId: 'fake-ipfsId',
-          ipfsMultiaddrs: ['fake-addr'],
-          bchAddr: 'fake-addr',
-          slpAddr: 'fake-addr',
-          publicKey: 'fake-key',
-          type: 'node.js'
-        }
-
-        uut = new ThisNodeEntity(configObj)
-
-        assert.fail('Unexpected code path')
-      } catch (err) {
-        assert.include(
-          err.message,
-          'OrbitDB for private messages required when instantiating thisNode Entity'
-        )
-      }
-    })
-
     it('should create a thisNode Entity', () => {
       const configObj = {
         ipfsId: 'fake-ipfsId',
@@ -163,8 +141,7 @@ describe('#thisNode-Entity', () => {
         bchAddr: 'fake-addr',
         slpAddr: 'fake-addr',
         publicKey: 'fake-key',
-        type: 'node.js',
-        orbit: {}
+        type: 'node.js'
       }
 
       uut = new ThisNodeEntity(configObj)
@@ -175,7 +152,6 @@ describe('#thisNode-Entity', () => {
       assert.property(uut, 'slpAddr')
       assert.property(uut, 'publicKey')
       assert.property(uut, 'type')
-      assert.property(uut, 'orbit')
     })
   })
 })

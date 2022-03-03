@@ -12,9 +12,12 @@ const AboutAdapter = require('../../../lib/adapters/about-adapter')
 // const BchAdapter = require('../../../lib/adapters/bch-adapter')
 
 const eventEmitter = {
-  emit: () => {},
-  on: () => {},
-  removeListener: () => {}
+  emit: () => {
+  },
+  on: () => {
+  },
+  removeListener: () => {
+  }
 }
 
 describe('#About-adapter', () => {
@@ -59,12 +62,14 @@ describe('#About-adapter', () => {
       const thisNode = {
         useCases: {
           peer: {
-            sendPrivateMessage: async () => {},
+            sendPrivateMessage: async () => {
+            },
             adapters: {
               bch: {
                 bchjs: {
                   Util: {
-                    sleep: () => {}
+                    sleep: () => {
+                    }
                   }
                 }
               }
@@ -90,12 +95,14 @@ describe('#About-adapter', () => {
       const thisNode = {
         useCases: {
           peer: {
-            sendPrivateMessage: async () => {},
+            sendPrivateMessage: async () => {
+            },
             adapters: {
               bch: {
                 bchjs: {
                   Util: {
-                    sleep: () => {}
+                    sleep: () => {
+                    }
                   }
                 }
               }
@@ -119,7 +126,7 @@ describe('#About-adapter', () => {
 
         assert.fail('Unexpected code path')
       } catch (err) {
-        // console.log(err)
+        console.log(err)
         assert.include(err.message, 'Cannot read property')
       }
     })
