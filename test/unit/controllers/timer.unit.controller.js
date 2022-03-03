@@ -25,13 +25,15 @@ describe('#timer-Controllers', () => {
 
     uut = new TimerControllers({
       adapters,
-      statusLog: () => {}
+      statusLog: () => {
+      }
     })
 
     const thisNodeUseCases = new ThisNodeUseCases({
       adapters,
       controllers: {},
-      statusLog: () => {}
+      statusLog: () => {
+      }
     })
     thisNode = await thisNodeUseCases.createSelf({ type: 'node.js' })
 
@@ -39,6 +41,11 @@ describe('#timer-Controllers', () => {
   })
 
   afterEach(() => sandbox.restore())
+
+  after(() => {
+    console.log('Stopping all timers')
+    uut.stopAllTimers()
+  })
 
   describe('#constructor', () => {
     it('should throw an error if adapters is not included', () => {
@@ -54,7 +61,7 @@ describe('#timer-Controllers', () => {
 
     it('should throw an error if status log handler is not included', () => {
       try {
-        uut = new TimerControllers({ adapters })
+        uut = new TimerControllers({ adapters})
       } catch (err) {
         assert.include(
           err.message,
