@@ -9,13 +9,18 @@ class AdaptersMock {
       ipfsMultiaddrs: ['addr1', 'addr2'],
       ipfs: {
         pubsub: {
-          subscribe: () => {}
+          subscribe: () => {
+          }
         }
       },
-      getPeers: () => {},
-      connectToPeer: () => {},
-      disconnectFromPeer: () => {},
-      disconnectFromMultiaddr: () => {}
+      getPeers: () => {
+      },
+      connectToPeer: () => {
+      },
+      disconnectFromPeer: () => {
+      },
+      disconnectFromMultiaddr: () => {
+      }
     }
 
     this.bchjs = {}
@@ -32,37 +37,69 @@ class AdaptersMock {
       },
       bchjs: {
         Util: {
-          sleep: () => {}
+          sleep: () => {
+          }
         }
       }
     }
 
     this.pubsub = {
-      subscribeToPubsubChannel: () => {},
-      publishToPubsubChannel: () => {}
+      subscribeToPubsubChannel: () => {
+      },
+      publishToPubsubChannel: () => {
+      },
+      messaging: {
+        publishToPubsubChannel: () => {
+        },
+        generateMsgObj: () => {
+        },
+        generateAckMsg: () => {
+        },
+        sendMsg: () => {
+        },
+        sendAck: () => {
+        },
+        handleIncomingData: () => {
+        },
+        _checkIfAlreadyProcessed: () => {
+        },
+        delMsgFromQueue: () => {
+        },
+        addMsgToQueue: () => {
+        },
+        resendMsg: () => {
+        },
+        waitForAck: () => {
+        }
+      }
     }
 
     this.encryption = {
-      encryptMsg: () => {}
+      encryptMsg: () => {
+      }
     }
 
     this.orbit = {
       createRcvDb: () => {
         return { id: 'fake-orbit-id' }
       },
-      connectToPeerDb: () => {}
+      connectToPeerDb: () => {
+      }
     }
 
     this.log = {
-      statusLog: () => {}
+      statusLog: () => {
+      }
     }
 
     this.about = {
-      queryAbout: () => {}
+      queryAbout: () => {
+      }
     }
 
     this.gist = {
-      getCRList: async () => {}
+      getCRList: async () => {
+      }
     }
   }
 }

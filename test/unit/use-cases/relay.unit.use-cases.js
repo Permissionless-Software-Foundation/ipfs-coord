@@ -26,14 +26,16 @@ describe('#relay-Use-Cases', () => {
     const thisNodeUseCases = new ThisNodeUseCases({
       adapters,
       controllers: {},
-      statusLog: () => {}
+      statusLog: () => {
+      }
     })
     thisNode = await thisNodeUseCases.createSelf({ type: 'node.js' })
 
     uut = new RelayUseCases({
       adapters,
       controllers: {},
-      statusLog: () => {}
+      statusLog: () => {
+      }
     })
   })
 
@@ -314,7 +316,7 @@ describe('#relay-Use-Cases', () => {
         assert.fail('Unexpected code path')
       } catch (err) {
         // console.log(err)
-        assert.include(err.message, 'Cannot read property')
+        assert.include(err.message, 'Cannot read')
       }
     })
 
@@ -328,7 +330,8 @@ describe('#relay-Use-Cases', () => {
               aboutLatency: []
             }
           }
-        ]
+        ],
+        peerData: []
       }
 
       await uut.measureRelays(thisNode)
@@ -480,7 +483,7 @@ describe('#relay-Use-Cases', () => {
         assert.fail('Unexpected code path')
       } catch (err) {
         // console.log(err)
-        assert.include(err.message, 'Cannot read property')
+        assert.include(err.message, 'Cannot read')
       }
     })
   })
@@ -507,7 +510,7 @@ describe('#relay-Use-Cases', () => {
         assert.fail('Unexpected code path')
       } catch (err) {
         // console.log(err)
-        assert.include(err.message, 'Cannot read property')
+        assert.include(err.message, 'Cannot read')
       }
     })
   })

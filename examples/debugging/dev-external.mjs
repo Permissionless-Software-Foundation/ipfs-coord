@@ -1,19 +1,15 @@
 /*
-  This example shows how to start an IPFS node, using ipfs-coord, with the
-  IPFS node running as an external node that can be controlled via the
-  ipfs-http-client library.
-
-  Designed to use IPFS running in this Docker container:
-  https://github.com/christroutner/docker-ipfs
+  Forked from start-external.js. This is used with a local copy of ipfs-http-client
+  source code that can be hacked.
 */
 
 // const IPFS = require('@chris.troutner/ipfs')
-const IPFS = require('ipfs-http-client')
+// const IPFS = require('ipfs-http-client')
+import { create } from 'ipfs-http-client'
 // const IPFS = require('/home/trout/work/personal/js-ipfs/packages/ipfs')
-const BCHJS = require('@psf/bch-js')
-// const IpfsCoord = require('ipfs-coord')
-const IpfsCoord = require('../index')
-const http = require('http')
+import http from 'http'
+import IpfsCoord from '../index.js'
+import BCHJS from '@psf/bch-js'
 
 // Configuration for external IPFS node.
 const ipfsOptions = {
@@ -26,7 +22,7 @@ const ipfsOptions = {
 async function start () {
   // Create an instance of bch-js and IPFS.
   const bchjs = new BCHJS()
-  const ipfs = await IPFS.create(ipfsOptions)
+  const ipfs = await create(ipfsOptions)
 
   // Pass bch-js and IPFS to ipfs-coord when instantiating it.
   const ipfsCoord = new IpfsCoord({

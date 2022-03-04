@@ -39,6 +39,14 @@ const BOOTSTRAP_NODE_CRs = [
     connected: false,
     ipfsId: '12D3KooWPcLSmGFCWDoFA2Xusfoe1mtqECmG9iKwckS7LDuGudZY',
     isBootstrap: true
+  },
+  {
+    name: 'test-node',
+    multiaddr:
+      '/ip4/5.161.46.163/tcp/4001/p2p/12D3KooWHS5A6Ey4V8fLWD64jpPn2EKi4r4btGN6FfkNgMTnfqVa',
+    connected: false,
+    ipfsId: '12D3KooWHS5A6Ey4V8fLWD64jpPn2EKi4r4btGN6FfkNgMTnfqVa',
+    isBootstrap: false
   }
 ]
 
