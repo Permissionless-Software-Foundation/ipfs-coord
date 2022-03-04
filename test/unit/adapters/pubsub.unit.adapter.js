@@ -10,13 +10,16 @@ const cloneDeep = require('lodash.clonedeep')
 // local libraries
 const Pubsub = require('../../../lib/adapters/pubsub-adapter')
 const ipfsLib = require('../../mocks/ipfs-mock')
-const mockData = require('../../mocks/pubsub-mocks')
+const mockDataLib = require('../../mocks/pubsub-mocks')
 const IPFSAdapter = require('../../../lib/adapters/ipfs-adapter')
+const thisNodeMock = require('../../mocks/thisnode-mocks')
 
 describe('#pubsub-adapter', () => {
   let sandbox
   let uut
   let ipfs
+  let thisNode
+  let mockData
 
   const log = {
     statusLog: () => {
@@ -28,6 +31,8 @@ describe('#pubsub-adapter', () => {
     sandbox = sinon.createSandbox()
 
     ipfs = cloneDeep(ipfsLib)
+    thisNode = cloneDeep(thisNodeMock)
+    mockData = cloneDeep(mockDataLib)
 
     const ipfsAdapter = new IPFSAdapter({ ipfs, log })
 
@@ -91,62 +96,77 @@ describe('#pubsub-adapter', () => {
     })
   })
 
-  describe('#subscribeToPubsubChannel', () => {
-    it('should subscribe to a pubsub channel', async () => {
-      const chanName = 'test'
-      const handler = () => {
-      }
-      const thisNodeId = 'testId'
-
-      await uut.subscribeToPubsubChannel(chanName, handler, thisNodeId)
-
-      assert.equal(true, true, 'Not throwing an error is a pass')
-    })
-
-    it('should catch and throw errors', async () => {
-      try {
-        // Force an error
-        sandbox
-          .stub(uut.ipfs.ipfs.pubsub, 'subscribe')
-          .rejects(new Error('test error'))
-
-        await uut.subscribeToPubsubChannel()
-
-        assert.fail('Unexpected code path')
-      } catch (err) {
-        // console.log('err: ', err)
-        assert.include(err.message, 'Cannot read')
-      }
-    })
-  })
-
   describe('#parsePubsubMessage', () => {
     it('should parse a pubsub message', async () => {
       const handler = () => {
       }
 
-      await uut.parsePubsubMessage(mockData.mockMsg, handler)
+      const result = await uut.parsePubsubMessage(mockData.mockMsg, handler, thisNode)
 
-      assert.equal(true, true, 'Not throwing an error is a pass')
+      // assert.equal(true, true, 'Not throwing an error is a pass')
+      assert.equal(result, true)
     })
 
     it('should quietly exit if message is from thisNode', async () => {
       const handler = () => {
       }
 
-      mockData.mockMsg.from = 'thisNodeId'
+      mockData.mockMsg.from = '12D3KooWE6tkdArVpCHG9QN61G1cE7eCq2Q7i4bNx6CJFTDprk9f'
 
-      await uut.parsePubsubMessage(mockData.mockMsg, handler, 'thisNodeId')
+      const result = await uut.parsePubsubMessage(mockData.mockMsg, handler, thisNode)
 
-      assert.equal(true, true, 'Not throwing an error is a pass')
+      // assert.equal(true, true, 'Not throwing an error is a pass')
+      assert.equal(result, true)
     })
 
     // This is a top-level function. It should not throw errors, but log
     // the error message.
     it('should catch and handle errors', async () => {
-      await uut.parsePubsubMessage()
+      const result = await uut.parsePubsubMessage()
 
-      assert.isOk(true, 'Not throwing an error is a pass')
+      // assert.isOk(true, 'Not throwing an error is a pass')
+      assert.equal(result, false)
+    })
+
+    it('should parse a message for an external IPFS node', async () => {
+      const handler = () => {
+      }
+
+      uut.nodeType = 'external'
+
+      const result = await uut.parsePubsubMessage(mockData.mockMsg, handler, thisNode)
+
+      // assert.equal(true, true, 'Not throwing an error is a pass')
+      assert.equal(result, true)
     })
   })
+
+// describe('#subscribeToPubsubChannel', () => {
+//   it('should subscribe to a pubsub channel', async () => {
+//     const chanName = 'test'
+//     const handler = () => {
+//     }
+//     const thisNodeId = 'testId'
+//
+//     await uut.subscribeToPubsubChannel(chanName, handler, thisNodeId)
+//
+//     assert.equal(true, true, 'Not throwing an error is a pass')
+//   })
+//
+//   it('should catch and throw errors', async () => {
+//     try {
+//       // Force an error
+//       sandbox
+//         .stub(uut.ipfs.ipfs.pubsub, 'subscribe')
+//         .rejects(new Error('test error'))
+//
+//       await uut.subscribeToPubsubChannel()
+//
+//       assert.fail('Unexpected code path')
+//     } catch (err) {
+//       // console.log('err: ', err)
+//       assert.include(err.message, 'Cannot read')
+//     }
+//   })
+// })
 })
