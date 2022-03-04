@@ -71,6 +71,10 @@ class AdaptersMock {
         },
         waitForAck: () => {
         }
+      },
+      about: {
+        queryAbout: () => {
+        }
       }
     }
 
@@ -89,11 +93,6 @@ class AdaptersMock {
 
     this.log = {
       statusLog: () => {
-      }
-    }
-
-    this.about = {
-      queryAbout: () => {
       }
     }
 

@@ -395,7 +395,7 @@ describe('#relay-Use-Cases', () => {
 
       // Mock dependencies
       sandbox.stub(uut.adapters.bch.bchjs.Util, 'sleep').resolves()
-      sandbox.stub(uut.adapters.about, 'queryAbout').resolves(true)
+      sandbox.stub(uut.adapters.pubsub.about, 'queryAbout').resolves(true)
 
       await uut.measureRelays(thisNode)
       // console.log(
