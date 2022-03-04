@@ -8,7 +8,7 @@ const sinon = require('sinon')
 const EventEmitter = require('events')
 
 // local libraries
-const AboutAdapter = require('../../../lib/adapters/about-adapter')
+const AboutAdapter = require('../../../lib/adapters/pubsub-adapter/about-adapter')
 // const BchAdapter = require('../../../lib/adapters/bch-adapter')
 
 const eventEmitter = {
