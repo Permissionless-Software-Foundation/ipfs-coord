@@ -5,20 +5,9 @@
 // npm libraries
 const assert = require('chai').assert
 const sinon = require('sinon')
-const EventEmitter = require('events')
 
 // local libraries
 const AboutAdapter = require('../../../lib/adapters/pubsub-adapter/about-adapter')
-// const BchAdapter = require('../../../lib/adapters/bch-adapter')
-
-const eventEmitter = {
-  emit: () => {
-  },
-  on: () => {
-  },
-  removeListener: () => {
-  }
-}
 
 describe('#About-adapter', () => {
   let uut
@@ -28,29 +17,11 @@ describe('#About-adapter', () => {
     // Restore the sandbox before each test.
     sandbox = sinon.createSandbox()
 
-    // const bchjs = new BCHJS()
-    // const bch = new BchAdapter({ bchjs })
-
     // Instantiate the library under test. Must instantiate dependencies first.
-    uut = new AboutAdapter({ eventEmitter })
+    uut = new AboutAdapter()
   })
 
   afterEach(() => sandbox.restore())
-
-  describe('#constructor', () => {
-    it('should throw an error if eventEmitter is not included', () => {
-      try {
-        uut = new AboutAdapter()
-
-        assert.fail('Unexpected code path')
-      } catch (err) {
-        assert.include(
-          err.message,
-          'An instance of Event Emitter must be passed when instantiating the About Adapter libary'
-        )
-      }
-    })
-  })
 
   describe('#sendRPC', () => {
     it('should return false if response is not recieved in time', async () => {
@@ -77,8 +48,6 @@ describe('#About-adapter', () => {
           }
         }
       }
-
-      uut.eventEmitter = new EventEmitter()
 
       const result = await uut.sendRPC(ipfsId, cmdStr, id, thisNode)
       // console.log('result: ', result)
@@ -112,7 +81,7 @@ describe('#About-adapter', () => {
       }
 
       // Force positive code path.
-      uut.retDataInitialValue = '{"id": 1}'
+      uut.incomingData = '{"id": 1}'
 
       const result = await uut.sendRPC(ipfsId, cmdStr, id, thisNode)
       // console.log('result: ', result)
@@ -126,7 +95,7 @@ describe('#About-adapter', () => {
 
         assert.fail('Unexpected code path')
       } catch (err) {
-        console.log(err)
+        // console.log(err)
         assert.include(err.message, 'Cannot read')
       }
     })
