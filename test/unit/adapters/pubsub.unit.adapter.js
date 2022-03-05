@@ -7,7 +7,6 @@ const assert = require('chai').assert
 const sinon = require('sinon')
 const cloneDeep = require('lodash.clonedeep')
 const BCHJS = require('@psf/bch-js')
-const EventEmitter = require('events')
 
 // local libraries
 const Pubsub = require('../../../lib/adapters/pubsub-adapter')
@@ -21,7 +20,7 @@ const BchAdapter = require('../../../lib/adapters/bch-adapter')
 describe('#pubsub-adapter', () => {
   let sandbox
   let uut
-  let ipfs, encryption, eventEmitter
+  let ipfs, encryption
   let thisNode
   let mockData
 
@@ -46,11 +45,8 @@ describe('#pubsub-adapter', () => {
     const bch = new BchAdapter({ bchjs })
     encryption = new EncryptionAdapter({ bch })
 
-    // Instantiate event emitter
-    eventEmitter = new EventEmitter()
-
     // Instantiate the library under test. Must instantiate dependencies first.
-    uut = new Pubsub({ ipfs: ipfsAdapter, log, encryption, privateLog: {}, eventEmitter })
+    uut = new Pubsub({ ipfs: ipfsAdapter, log, encryption, privateLog: {} })
   })
 
   afterEach(() => sandbox.restore())
@@ -170,9 +166,6 @@ describe('#pubsub-adapter', () => {
     })
 
     it('should capture an about RESPONSE', async () => {
-      // Mock dependencies
-      sandbox.stub(uut.eventEmitter, 'emit').returns()
-
       const decryptedStr = mockData.aboutResponse
       const from = 'fake-id'
 
