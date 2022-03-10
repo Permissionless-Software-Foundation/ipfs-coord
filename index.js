@@ -126,8 +126,11 @@ class IpfsCoord {
 
       return true
     } catch (err) {
-      console.error('Error in _initializeConnections()')
-      throw err
+      console.error('Error in _initializeConnections(): ', err)
+      // throw err
+
+      // Do not throw errors as it will prevent the node from starting.
+      return false
     }
   }
 }
