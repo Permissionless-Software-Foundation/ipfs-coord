@@ -476,15 +476,10 @@ describe('#messaging-adapter', () => {
       assert.equal(result, false)
     })
 
-    it('should catch and throw errors', async () => {
-      try {
-        await uut.handleIncomingData()
+    it('should return false on error', async () => {
+      const result = await uut.handleIncomingData()
 
-        assert.fail('Unexpected code path')
-      } catch (err) {
-        console.log('err: ', err)
-        assert.include(err.message, 'Cannot read')
-      }
+      assert.equal(result, false)
     })
   })
 })
