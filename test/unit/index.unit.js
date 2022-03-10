@@ -147,20 +147,15 @@ describe('#ipfs-coord', () => {
       assert.equal(result, true)
     })
 
-    it('should catch and throw errors', async () => {
-      try {
-        // Force and error
-        sandbox
-          .stub(uut.useCases.relays, 'initializeRelays')
-          .rejects(new Error('test error'))
+    it('should return falses on error', async () => {
+      // Force and error
+      sandbox
+        .stub(uut.useCases.relays, 'initializeRelays')
+        .rejects(new Error('test error'))
 
-        await uut._initializeConnections()
+      const result = await uut._initializeConnections()
 
-        assert.fail('Unexpected code path')
-      } catch (err) {
-        // console.log(err)
-        assert.include(err.message, 'test error')
-      }
+      assert.equal(result, false)
     })
   })
 })
