@@ -71,7 +71,7 @@
     "uuid": "8.3.2"
   },
   "peerDependencies": {
-    "ipfs": "0.60.0",
-    "ipfs-http-client": "55.0.0"
+    "ipfs": "^0.58.6",
+    "ipfs-http-client": "^55.0.0"
   }
 }
