@@ -29,7 +29,7 @@ describe('#gist', () => {
       sandbox.stub(uut.axios, 'get').resolves({
         data: {
           files: {
-            'psf-circuit-relays.json': {
+            'psf-public-circuit-relays.json': {
               content: JSON.stringify({ key: 'value' })
             }
           }
