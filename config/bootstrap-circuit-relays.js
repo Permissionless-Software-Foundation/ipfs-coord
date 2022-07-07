@@ -12,7 +12,7 @@ const BOOTSTRAP_BROWSER_CRs = [
     connected: false,
     ipfsId: '12D3KooWRBhwfeP2Y9CDkFRBAZ1pmxUadH36TKuk3KtKm5XXP8mA',
     isBootstrap: true
-  },
+  }
   // {
   //   name: 'psf-cr-USA-cali',
   //   multiaddr: '/dns4/ipfs-cr.fullstackcash.nl/tcp/443/wss/p2p/12D3KooWPcLSmGFCWDoFA2Xusfoe1mtqECmG9iKwckS7LDuGudZY',
@@ -29,7 +29,7 @@ const BOOTSTRAP_NODE_CRs = [
     connected: false,
     ipfsId: '12D3KooWRBhwfeP2Y9CDkFRBAZ1pmxUadH36TKuk3KtKm5XXP8mA',
     isBootstrap: true
-  },
+  }
   // {
   //   name: 'psf-cr-USA-cali',
   //   multiaddr: '/ip4/137.184.13.92/tcp/4001/p2p/12D3KooWPcLSmGFCWDoFA2Xusfoe1mtqECmG9iKwckS7LDuGudZY',
