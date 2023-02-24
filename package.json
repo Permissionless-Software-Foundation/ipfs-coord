@@ -34,7 +34,7 @@
   },
   "repository": "Permissionless-Software-Foundation/ipfs-coord",
   "devDependencies": {
-    "@psf/bch-js": "6.4.1",
+    "@psf/bch-js": "6.6.0",
     "apidoc": "0.25.0",
     "chai": "4.2.0",
     "coveralls": "3.1.0",
